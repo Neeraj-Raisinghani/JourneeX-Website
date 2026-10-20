@@ -2,7 +2,7 @@
   {
     num: "01",
     title: "Getting the AI tone exactly right",
-    body: "The hardest part wasn't the code - it was the prompt. Early versions produced summaries structured like reports: bullet points, section headers, clinical observations. That felt cold and wrong for something as personal as a journal. Multiple iterations of prompt engineering were required to get Claude writing in natural, conversational prose under 250 words - warm, personal, and human. The final prompt instructs it to write the way a thoughtful friend would speak.",
+    body: "The hardest part wasn't the code - it was the prompt. Early versions produced summaries structured like reports: bullet points, section headers, clinical observations. That felt cold and wrong for something as personal as a journal. Multiple iterations of prompt engineering were required to get the AI writing in natural, conversational prose under 250 words - warm, personal, and human. The final prompt instructs it to write the way a thoughtful friend would speak.",
   },
   {
     num: "02",

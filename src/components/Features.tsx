@@ -47,7 +47,7 @@ export default function Features() {
                 <span className="highlighted-text">show up and write</span>.
               </p>
               <Link href="/product" className="btn-ghost">
-                View all {features.length} features
+                View All Features
               </Link>
             </div>
           </ScrollReveal>

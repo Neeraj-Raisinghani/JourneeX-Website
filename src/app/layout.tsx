@@ -9,8 +9,9 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "700", "800", "900"],
+  weight: ["400", "800", "900"],
   style: ["normal", "italic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | JourneeX",
   },
   description:
-    "JourneeX is a personal AI journal. Write your day and get a warm, human reflection back, powered by Claude.",
+    "JourneeX is a personal AI journal. Write your day and get a warm, human reflection back.",
   keywords: [
     "AI journal",
     "personal journal app",

@@ -67,23 +67,23 @@ export default function CTA() {
           </ScrollReveal>
 
           <ScrollReveal delay={160}>
-            <div>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <a
                 href="https://app.journeex.neerajraisinghani.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  display: "block",
-                  padding: "14px 36px",
+                  display: "inline-block",
+                  padding: "12px 28px",
                   fontWeight: 700,
-                  fontSize: "0.9rem",
+                  fontSize: "0.875rem",
                   letterSpacing: "0.04em",
                   color: "#000",
                   background: "#fff",
                   textDecoration: "none",
                   border: "2px solid #fff",
                   transition: "opacity 0.2s",
-                  textAlign: "center",
+                  whiteSpace: "nowrap",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
                 onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}

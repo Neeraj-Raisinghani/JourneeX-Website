@@ -37,7 +37,7 @@ const faqs = [
   },
   {
     q: "Does JourneeX use my entries to train AI?",
-    a: "No. Your entries are never used to train AI models. Claude reads your entry to generate a reflection, and that's it. We do not store or pass your content to any third party beyond what is necessary to generate your reflection.",
+    a: "No. Your entries are never used to train AI models. The AI reads your entry to generate a reflection, and that's it. We do not store or pass your content to any third party beyond what is necessary to generate your reflection.",
   },
   {
     q: "What features are included?",
@@ -168,7 +168,10 @@ export default function FAQPage() {
                   textDecoration: "none",
                   border: "2px solid #fff",
                   whiteSpace: "nowrap",
+                  transition: "opacity 0.2s",
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
               >
                 Email
               </a>

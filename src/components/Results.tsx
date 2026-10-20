@@ -79,7 +79,7 @@ export default function Results() {
             "In AI-powered products,{" "}
             <span className="gradient-text font-bold">the prompt is the product.</span>{" "}
             The underlying technology was straightforward - the hard work was
-            figuring out exactly what to say to Claude to get it to respond the way
+            figuring out exactly what to say to the AI to get it to respond the way
             a human would. Tone, word choice, constraints, length limits - all of
             it matters enormously."
           </p>

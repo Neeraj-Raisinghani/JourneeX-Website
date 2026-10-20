@@ -255,19 +255,19 @@ export default function ProductPage() {
             {[
               {
                 type: "The Overthinker",
-                desc: "Your brain doesn't stop. Writing slows it down. The AI reflection helps you see which worries are real and which are just noise.",
+                desc: "Your brain doesn't stop. Writing slows it down. The reflection helps you see which worries are real and which are just noise.",
               },
               {
                 type: "The Goal Setter",
-                desc: "You track everything. JourneeX adds a layer you've been missing - the why behind the numbers. Habit streaks meet honest self-assessment.",
+                desc: "You track everything. JourneeX adds the layer you've been missing: the why behind the numbers, not just the streak.",
               },
               {
-                type: "The Person Who Just Needs to Vent",
+                type: "The Venter",
                 desc: "No judgment, no advice unless you want it. Sometimes you just need somewhere to put it all. JourneeX holds it.",
               },
               {
                 type: "The Builder",
-                desc: "You're shipping, growing, learning. A daily entry keeps you honest about what's working, what's draining you, and where you're actually headed.",
+                desc: "You're shipping, growing, learning. A daily entry keeps you honest about what's working and where you're actually headed.",
               },
             ].map((p, i) => (
               <div

@@ -106,6 +106,8 @@ export default function Hero() {
               borderTop: "1px solid var(--border-dark)",
               paddingTop: "28px",
               willChange: "opacity, transform",
+              opacity: 0,
+              transform: "translateY(40px)",
             }}
           >
             <div>
@@ -200,6 +202,7 @@ export default function Hero() {
             alignItems: "center",
             gap: "16px",
             willChange: "opacity",
+            opacity: 0,
           }}
         >
           {/* Vertical label */}

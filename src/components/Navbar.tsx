@@ -214,14 +214,18 @@ export default function Navbar() {
               style={{
                 marginLeft: "auto",
                 display: "inline-block",
-                padding: "10px 24px",
+                padding: "12px 28px",
                 fontWeight: 700,
                 fontSize: "0.875rem",
                 letterSpacing: "0.04em",
                 color: "#000",
-                background: "var(--highlight)",
+                background: "#fff",
+                border: "2px solid #fff",
                 textDecoration: "none",
+                transition: "opacity 0.2s",
               }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
               Try it live
             </a>

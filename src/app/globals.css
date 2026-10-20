@@ -261,7 +261,8 @@ body.nav-open { overflow: hidden; }
 .page-heading-parent {
   margin-bottom: 40px;
 }
-.page-heading-parent h1 {
+.page-heading-parent h1,
+.page-heading-parent h2 {
   font-family: var(--font-playfair), Georgia, serif;
   font-size: clamp(1.8rem, 3vw, 2.2rem);
   font-weight: 700;

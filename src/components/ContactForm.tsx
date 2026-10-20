@@ -77,12 +77,12 @@ function CountrySelect({ value, onChange, options }: CountrySelectProps) {
           padding: "11px 10px 11px 14px",
           background: "none",
           border: "none",
-          borderRight: "1px solid #ccc9c0",
+          borderRight: "1px solid var(--border)",
           cursor: "pointer",
           fontFamily: "inherit",
-          fontSize: "0.88rem",
+          fontSize: "0.875rem",
           fontWeight: 600,
-          color: "#1a1816",
+          color: "var(--text)",
           whiteSpace: "nowrap",
           height: "100%",
         }}
@@ -101,9 +101,8 @@ function CountrySelect({ value, onChange, options }: CountrySelectProps) {
             top: dropdownPos.top,
             left: dropdownPos.left,
             zIndex: 9999,
-            background: "#fff",
-            border: "1px solid #ccc9c0",
-            borderRadius: "8px",
+            background: "var(--bg)",
+            border: "1px solid var(--border)",
             boxShadow: "0 8px 24px rgba(0,0,0,0.14)",
             width: "240px",
             maxHeight: "280px",
@@ -121,13 +120,13 @@ function CountrySelect({ value, onChange, options }: CountrySelectProps) {
               onChange={(e) => setSearch(e.target.value)}
               style={{
                 width: "100%",
-                border: "1px solid #ccc9c0",
-                borderRadius: "6px",
+                border: "1px solid var(--border)",
                 padding: "7px 10px",
                 fontSize: "0.82rem",
                 fontFamily: "inherit",
                 outline: "none",
-                color: "#1a1816",
+                color: "var(--text)",
+                background: "var(--bg)",
                 boxSizing: "border-box",
               }}
             />
@@ -152,20 +151,20 @@ function CountrySelect({ value, onChange, options }: CountrySelectProps) {
                       justifyContent: "space-between",
                       width: "100%",
                       padding: "8px 14px",
-                      background: isSelected ? "#f5f3ef" : "none",
+                      background: isSelected ? "var(--surface)" : "none",
                       border: "none",
                       cursor: "pointer",
                       fontFamily: "inherit",
                       fontSize: "0.85rem",
-                      color: "#1a1816",
+                      color: "var(--text)",
                       textAlign: "left",
                       gap: "8px",
                     }}
-                    onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.background = "#faf9f6"; }}
+                    onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.background = "var(--surface)"; }}
                     onMouseLeave={(e) => { if (!isSelected) e.currentTarget.style.background = "none"; }}
                   >
                     <span style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{name}</span>
-                    <span style={{ fontSize: "0.78rem", color: "#888480", flexShrink: 0 }}>{code}</span>
+                    <span style={{ fontSize: "0.78rem", color: "var(--text-muted)", flexShrink: 0 }}>{code}</span>
                   </button>
                 );
               })
@@ -187,12 +186,11 @@ const fieldLabel: React.CSSProperties = {
 };
 
 const boxField: React.CSSProperties = {
-  background: "#fff",
-  border: "1px solid #ccc9c0",
-  borderRadius: "8px",
+  background: "var(--bg)",
+  border: "1px solid var(--border)",
   padding: "11px 14px",
-  fontSize: "0.9rem",
-  color: "#1a1816",
+  fontSize: "0.875rem",
+  color: "var(--text)",
   outline: "none",
   width: "100%",
   fontFamily: "inherit",
@@ -215,6 +213,7 @@ function validateEmail(email: string): boolean {
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [formKey, setFormKey] = useState(0);
   const [phone, setPhone] = useState<string | undefined>(undefined);
   const [country, setCountry] = useState<Country>("IN");
@@ -246,6 +245,7 @@ export default function ContactForm() {
     }
 
     setErrors({});
+    setSubmitError("");
     window.location.href = `mailto:neeraj@neerajraisinghani.com?subject=Message from ${name}&body=${message}%0A%0APhone: ${phone || "Not provided"}%0AReply to: ${email}`;
     setSubmitted(true);
     setTimeout(() => {
@@ -267,8 +267,9 @@ export default function ContactForm() {
               alt="Send us a message"
               width={400}
               height={400}
-              style={{ width: "100%", maxWidth: "400px", height: "auto", marginBottom: "40px", display: "block" }}
-              priority
+              sizes="(max-width: 900px) 100vw, 400px"
+              style={{ width: "100%", maxWidth: "400px", marginBottom: "40px", display: "block" }}
+              loading="lazy"
             />
             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               {[
@@ -373,10 +374,21 @@ export default function ContactForm() {
                   {errors.message && <div style={errorText}>{errors.message}</div>}
                 </div>
 
+                {/* Submit error */}
+                {submitError && (
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "12px 14px", background: "#fdf2f2", border: "1px solid #f5c6c6" }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: "1px" }}>
+                      <circle cx="12" cy="12" r="10" stroke="#c0392b" strokeWidth="2" />
+                      <path d="M12 8v4M12 16h.01" stroke="#c0392b" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "0.85rem", color: "#c0392b", lineHeight: 1.5 }}>{submitError}</span>
+                  </div>
+                )}
+
                 {/* Submit */}
                 <button
                   type="submit"
-                  style={{ width: "100%", padding: "14px", fontWeight: 700, fontSize: "0.95rem", letterSpacing: "0.03em", color: "#fff", background: "#1a1816", border: "none", borderRadius: "8px", cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.2s" }}
+                  style={{ width: "100%", padding: "12px 28px", fontWeight: 700, fontSize: "0.875rem", letterSpacing: "0.04em", color: "var(--bg)", background: "var(--text)", border: "2px solid var(--text)", cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.2s" }}
                   onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
                   onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
                 >
@@ -393,14 +405,13 @@ export default function ContactForm() {
         .phone-input-wrapper {
           display: flex;
           align-items: center;
-          border: 1px solid #ccc9c0;
-          border-radius: 8px;
-          background: #fff;
+          border: 1px solid var(--border);
+          background: var(--bg);
           overflow: hidden;
           transition: border-color 0.2s;
         }
         .phone-input-wrapper:focus-within {
-          border-color: #1a1816;
+          border-color: var(--text);
         }
 
         /* Inner phone input */
@@ -414,13 +425,13 @@ export default function ContactForm() {
           border: none;
           outline: none;
           background: transparent;
-          font-size: 0.9rem;
-          color: #1a1816;
+          font-size: 0.875rem;
+          color: var(--text);
           font-family: inherit;
           padding: 11px 14px;
         }
         .phone-input-inner input[type="tel"]::placeholder {
-          color: #aaa8a4;
+          color: var(--text-dim);
         }
 
         @media (max-width: 900px) {

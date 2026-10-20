@@ -81,7 +81,7 @@ export default function AboutPage() {
       <section className="section" style={{ background: "var(--bg)" }}>
         <div className="container">
           <div className="page-heading-parent">
-            <h1>How It Works</h1>
+            <h2>How It Works</h2>
             <hr className="line-grey" />
           </div>
 
@@ -103,12 +103,12 @@ export default function AboutPage() {
               {
                 step: "02",
                 title: "Save your entry",
-                desc: "Your entry is saved securely to Supabase. It is yours, private, persistent, accessible anywhere.",
+                desc: "Your entry is saved securely and encrypted. Private, persistent, and only ever accessible by you.",
               },
               {
                 step: "03",
                 title: "Hear it back",
-                desc: "Claude reads what you wrote and responds with a warm, conversational reflection. Under 250 words, in prose, like a thoughtful friend.",
+                desc: "The AI reads what you wrote and responds with a warm, honest reflection. In prose, like a thoughtful friend.",
               },
             ].map((s) => (
               <div
@@ -155,7 +155,7 @@ export default function AboutPage() {
       <section className="section" style={{ background: "var(--surface)" }}>
         <div className="container">
           <div className="page-heading-parent">
-            <h1>Philosophy</h1>
+            <h2>Philosophy</h2>
             <hr className="line-grey" />
           </div>
 
@@ -242,13 +242,13 @@ export default function AboutPage() {
       <section className="section" style={{ background: "var(--surface)", borderTop: "1px solid var(--border)" }}>
         <div className="container">
           <div className="page-heading-parent">
-            <h1>How it was built</h1>
+            <h2>How it was built</h2>
             <hr className="line-grey" />
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0" }} className="how-built-grid">
             {[
-              { label: "Stack", body: "Next.js, Cloudflare Workers, Supabase, and Claude as the AI layer. Everything runs at the edge - fast and private by default." },
-              { label: "AI layer", body: "Claude reads each entry and generates a reflection tuned for tone, not just content. Hundreds of prompt iterations to get it feeling human." },
+              { label: "Stack", body: "Next.js, Cloudflare Workers, Supabase, and a large language model as the AI layer. Everything runs at the edge - fast and private by default." },
+              { label: "AI layer", body: "The AI reads each entry and generates a reflection tuned for tone, not just content. Hundreds of prompt iterations to get it feeling human." },
               { label: "Design", body: "Editorial, no-frills, dark-first. Built to feel like a journal, not a dashboard. Every decision was made to keep writing at the centre." },
             ].map((item, i) => (
               <div key={item.label} style={{ padding: "40px 36px", border: "1px solid var(--border)", marginLeft: i === 0 ? 0 : "-1px" }}>
@@ -265,7 +265,7 @@ export default function AboutPage() {
       <section className="section" style={{ background: "var(--bg-dark)", color: "var(--text-light)" }}>
         <div className="container">
           <div className="page-heading-parent">
-            <h1 style={{ color: "var(--text-light)" }}>The Builder</h1>
+            <h2 style={{ color: "var(--text-light)" }}>The Builder</h2>
             <hr className="line-dark" />
           </div>
           <div

@@ -14,7 +14,7 @@ export default function About() {
             </p>
             <p style={{ fontSize: "0.95rem", lineHeight: 1.85, color: "var(--text-muted)", marginBottom: "36px" }}>
               The philosophy was restraint. One job: write, get a thoughtful
-              summary back. The Claude integration was tuned over many iterations
+              summary back. The AI layer was tuned over many iterations
               to produce reflections that feel personal and grounded.
             </p>
             <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>

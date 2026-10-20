@@ -1,16 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) setSubmitted(true);
-  };
-
   return (
     <footer className="footer">
       {/* Big background brand text */}
@@ -199,15 +190,34 @@ export default function Footer() {
           }}
         >
           <span style={{ fontSize: "0.78rem", color: "var(--text-light-muted)" }}>
-            Copyright &copy; {new Date().getFullYear()} <em>JourneeX</em>
+            Copyright &copy; {new Date().getFullYear()}{" "}
+            <Link
+              href="/"
+              style={{ color: "var(--text-light-muted)", fontStyle: "italic", textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-light)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-light-muted)")}
+            >JourneeX</Link>
           </span>
-          <span style={{ fontSize: "0.78rem", color: "var(--text-light-muted)" }}>
-            Product by{" "}
+          <span style={{ fontSize: "0.78rem", color: "var(--text-light-muted)", display: "flex", gap: "20px", flexWrap: "wrap" }}>
+            <Link
+              href="/privacy"
+              style={{ color: "var(--text-light-muted)", textDecoration: "underline", transition: "color 0.2s" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-light)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-light-muted)")}
+            >Privacy Policy</Link>
+            <Link
+              href="/terms"
+              style={{ color: "var(--text-light-muted)", textDecoration: "underline", transition: "color 0.2s" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-light)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-light-muted)")}
+            >Terms of Service</Link>
             <a
               href="https://neerajraisinghani.com"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "var(--text-light-muted)", textDecoration: "underline" }}
+              style={{ color: "var(--text-light-muted)", textDecoration: "underline", transition: "color 0.2s" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-light)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-light-muted)")}
             >
               @neerajraisinghani
             </a>
