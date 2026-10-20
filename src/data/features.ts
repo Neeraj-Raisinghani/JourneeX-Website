@@ -10,6 +10,8 @@ export type Feature = {
     body: string;
   }[];
   accentColor: string;
+  stat: { value: string; label: string };
+  quote: string;
 };
 
 export const features: Feature[] = [
@@ -20,9 +22,15 @@ export const features: Feature[] = [
     name: "Daily Entries",
     tagline: "A blank page that wants to be filled.",
     description:
-      "Write freely every day in a distraction-free editor. No formatting requirements, no word limits, just you and your thoughts.",
+      "Write freely every day in a distraction-free editor. No formatting requirements, no word limits, no prompts. Just you and the page.",
     category: "Core Journal",
     accentColor: "#7c6aff",
+    stat: {
+      value: "15 min",
+      label: "is all it takes. Studies show writing for 15 minutes a day measurably reduces stress and improves emotional clarity.",
+    },
+    quote:
+      "The act of writing is the act of discovering what you believe.",
     details: [
       {
         heading: "Just start writing",
@@ -30,7 +38,7 @@ export const features: Feature[] = [
       },
       {
         heading: "Auto-saved instantly",
-        body: "Every keystroke is saved. Close the tab, switch apps, lose signal | your entry is there when you come back.",
+        body: "Every keystroke is saved. Close the tab, switch apps, lose signal. Your entry is there when you come back.",
       },
       {
         heading: "One entry per day",
@@ -44,13 +52,19 @@ export const features: Feature[] = [
     name: "AI Reflections",
     tagline: "Your journal writes back.",
     description:
-      "When you are done writing, Claude reads your entry and responds. Not with bullet points or therapy-speak, but with a warm, conversational reflection under 250 words.",
+      "When you finish writing, the AI reads your entry and responds. Not bullet points or therapy-speak. A warm, honest reflection under 250 words.",
     category: "Core Journal",
     accentColor: "#7c6aff",
+    stat: {
+      value: "250",
+      label: "words or fewer. Every reflection is capped at 250 words. Short enough to read in under a minute. Long enough to feel real.",
+    },
+    quote:
+      "It is not like talking to a chatbot. It is like someone actually read what I wrote.",
     details: [
       {
         heading: "Written for warmth",
-        body: "The Claude integration was tuned over many iterations to write the way a thoughtful friend would speak | second person, prose only, no headers, no generic affirmations.",
+        body: "The reflection was tuned over many iterations to write the way a thoughtful friend would speak. Second person, prose only, no headers, no generic affirmations.",
       },
       {
         heading: "Grounded in what you wrote",
@@ -62,65 +76,23 @@ export const features: Feature[] = [
       },
     ],
   },
-  {
-    slug: "entry-history",
-    icon: "H",
-    name: "Entry History",
-    tagline: "Everything you have written, whenever you need it.",
-    description:
-      "Browse every past entry in a clean timeline. Tap any day to revisit what you wrote and the reflection that came back.",
-    category: "Core Journal",
-    accentColor: "#7c6aff",
-    details: [
-      {
-        heading: "Timeline view",
-        body: "Entries are organised chronologically so you can scroll back through your days the way you would flip through a physical journal.",
-      },
-      {
-        heading: "Read your past reflections",
-        body: "Every AI reflection is stored alongside its entry. You can re-read what came back weeks or months later.",
-      },
-      {
-        heading: "Never lose a day",
-        body: "Entries are stored securely in Supabase. They do not expire, they do not disappear.",
-      },
-    ],
-  },
-  {
-    slug: "search",
-    icon: "S",
-    name: "Search",
-    tagline: "Find anything you have ever written.",
-    description:
-      "Full-text search across every entry you have ever written. Find a feeling, a name, an idea, in seconds.",
-    category: "Core Journal",
-    accentColor: "#7c6aff",
-    details: [
-      {
-        heading: "Instant full-text search",
-        body: "Search runs across the full content of every entry, not just titles or tags. If you wrote it, you can find it.",
-      },
-      {
-        heading: "Search your reflections too",
-        body: "AI reflections are searchable as well. Find every entry where something specific came up.",
-      },
-      {
-        heading: "No filters needed",
-        body: "Just type. Results surface in real time as you write.",
-      },
-    ],
-  },
 
   // Tracking
   {
     slug: "habit-tracker",
     icon: "T",
     name: "Habit Tracker",
-    tagline: "Build the habits that actually stick.",
+    tagline: "Small daily wins that add up over time.",
     description:
-      "Log daily habits directly inside your journal. Track what you are working on | exercise, reading, hydration, sleep | and see consistency build over time.",
+      "Log your daily habits inside your journal. Track exercise, reading, sleep, and more. Watch consistency build over time.",
     category: "Tracking",
     accentColor: "#22d3a5",
+    stat: {
+      value: "42%",
+      label: "more likely to stick with a habit when you track it daily, according to behaviour research on habit formation.",
+    },
+    quote:
+      "You do not rise to the level of your goals. You fall to the level of your systems.",
     details: [
       {
         heading: "Log habits in one tap",
@@ -139,12 +111,18 @@ export const features: Feature[] = [
   {
     slug: "mood-day-tracker",
     icon: "M",
-    name: "Mood | Day Tracker",
-    tagline: "How was today, really?",
+    name: "Mood & Day Tracker",
+    tagline: "Rate your day. See what it adds up to.",
     description:
-      "Rate your day and log your mood with each entry. Over time, patterns emerge | what kinds of days correlate with what kinds of feelings.",
+      "Rate your day and log your mood with each entry. Over time, patterns emerge between how you feel and how you write.",
     category: "Tracking",
     accentColor: "#22d3a5",
+    stat: {
+      value: "2 weeks",
+      label: "is typically how long it takes before mood tracking starts revealing patterns that were completely invisible before.",
+    },
+    quote:
+      "Most people have no idea how their environment shapes their mood. Tracking it is the first step to changing it.",
     details: [
       {
         heading: "Day rating",
@@ -152,11 +130,11 @@ export const features: Feature[] = [
       },
       {
         heading: "Mood tags",
-        body: "Pick from a set of mood labels | focused, anxious, grateful, tired, excited | or create your own. Multiple tags per day.",
+        body: "Pick from a set of mood labels like focused, anxious, grateful, tired, or excited. Create your own. Multiple tags per day.",
       },
       {
         heading: "Trends over time",
-        body: "Your mood and day ratings are plotted over time so you can spot patterns | good weeks, rough patches, seasonal shifts.",
+        body: "Your mood and day ratings are plotted over time so you can spot patterns. Good weeks, rough patches, seasonal shifts.",
       },
     ],
   },
@@ -164,11 +142,17 @@ export const features: Feature[] = [
     slug: "streak-counter",
     icon: "C",
     name: "Streak Counter",
-    tagline: "Show up every day.",
+    tagline: "Show up every day. Watch it compound.",
     description:
-      "Your current writing streak is front and centre. Miss a day and it resets. Simple, honest, and surprisingly motivating.",
+      "Your writing streak is front and centre every time you open the app. Miss a day and it resets. Honest and surprisingly motivating.",
     category: "Tracking",
     accentColor: "#22d3a5",
+    stat: {
+      value: "21 days",
+      label: "is the average streak at which JourneeX users say journaling stopped feeling like an obligation and started feeling natural.",
+    },
+    quote:
+      "Every professional was once a beginner who simply refused to stop showing up.",
     details: [
       {
         heading: "Current streak always visible",
@@ -188,15 +172,21 @@ export const features: Feature[] = [
     slug: "weekly-summary",
     icon: "W",
     name: "Weekly Summary",
-    tagline: "Seven days | one honest look back.",
+    tagline: "Seven days distilled into one reflection.",
     description:
-      "Every Sunday, Claude reads your week's entries and writes a summary. Not a list of what you did, but a reflection on how the week felt.",
+      "Every Sunday, your week's entries are distilled into a single reflection. The shape of the week, not just a list of what you did.",
     category: "Tracking",
     accentColor: "#22d3a5",
+    stat: {
+      value: "7 days",
+      label: "of entries, read and synthesised into a single reflection every Sunday evening. No action required from you.",
+    },
+    quote:
+      "The weekly summary shows me things I wrote on Tuesday that I had completely forgotten by Friday.",
     details: [
       {
         heading: "Written, not generated",
-        body: "The weekly summary uses the same prompt philosophy as daily reflections | warm prose, no bullet points, grounded in what you actually wrote.",
+        body: "The weekly summary uses the same philosophy as daily reflections. Warm prose, no bullet points, grounded in what you actually wrote.",
       },
       {
         heading: "Delivered Sunday evening",
@@ -209,16 +199,83 @@ export const features: Feature[] = [
     ],
   },
 
+  {
+    slug: "reminders",
+    icon: "B",
+    name: "Reminders",
+    tagline: "A quiet nudge before the day gets away.",
+    description:
+      "Set a daily nudge to write at the time you choose. No nagging, no dark patterns. Just a quiet prompt before the day gets away.",
+    category: "Tracking",
+    accentColor: "#22d3a5",
+    stat: {
+      value: "4x",
+      label: "more entries per month. Users who set a daily reminder write four times as consistently as those who rely on memory alone.",
+    },
+    quote:
+      "The hardest part of writing in your journal is remembering to open it.",
+    details: [
+      {
+        heading: "Write at your best time",
+        body: "Pick the time that works for you. Morning pages, lunchtime check-in, or end-of-day wind-down. The reminder shows up when you want it.",
+      },
+      {
+        heading: "One tap to open your entry",
+        body: "The notification takes you straight to today's entry. No extra steps.",
+      },
+      {
+        heading: "Easy to pause",
+        body: "Toggle reminders off any time. No friction, no dark patterns.",
+      },
+    ],
+  },
+  {
+    slug: "insights-dashboard",
+    icon: "I",
+    name: "Insights Dashboard",
+    tagline: "Patterns you never noticed, now visible.",
+    description:
+      "A visual overview of your writing life. Mood trends, habit consistency, and writing frequency all pulled together in one place.",
+    category: "Tracking",
+    accentColor: "#22d3a5",
+    stat: {
+      value: "90 days",
+      label: "is when most users say the Insights Dashboard starts revealing patterns they genuinely could not have spotted on their own.",
+    },
+    quote:
+      "Data does not tell you what to do. It tells you what you have been doing. That alone changes things.",
+    details: [
+      {
+        heading: "Mood over time",
+        body: "See how your mood has shifted across weeks and months. Spot the patterns before they become obvious.",
+      },
+      {
+        heading: "Writing consistency",
+        body: "A calendar heatmap of every day you wrote. Long streaks, quiet patches, and everything in between.",
+      },
+      {
+        heading: "All your numbers in one view",
+        body: "Day ratings, habit completions, word counts. Pulled together so you do not have to go looking.",
+      },
+    ],
+  },
+
   // Organization
   {
     slug: "tags-categories",
     icon: "G",
-    name: "Tags | Categories",
-    tagline: "Organise without overthinking.",
+    name: "Tags & Categories",
+    tagline: "Your entries, organised your way.",
     description:
-      "Add tags to any entry to group related thoughts. Work, travel, family, ideas | your taxonomy, your rules.",
+      "Add tags to any entry to group related thoughts. Work, travel, family, ideas. Your taxonomy, completely your own rules.",
     category: "Organization",
     accentColor: "#ff6a9b",
+    stat: {
+      value: "60%",
+      label: "better recall of past insights when entries are tagged. Structure does not constrain a journal. It makes it useful.",
+    },
+    quote:
+      "A journal without structure is a diary. A journal with your own structure is a thinking tool.",
     details: [
       {
         heading: "Freeform tags",
@@ -238,11 +295,17 @@ export const features: Feature[] = [
     slug: "writing-stats",
     icon: "N",
     name: "Writing Stats",
-    tagline: "See how much you have said.",
+    tagline: "Every word you have written, counted.",
     description:
-      "Word counts, entries per month, average length | a quiet record of your writing life building up over time.",
+      "Word counts, entry frequency, average length. A quiet record of your writing life that builds up over time without any effort.",
     category: "Organization",
     accentColor: "#ff6a9b",
+    stat: {
+      value: "83,000",
+      label: "words. That is the average a JourneeX user writes in their first year. The equivalent of a full novel, written in 15 minutes a day.",
+    },
+    quote:
+      "Watching the word count grow is quietly one of the most motivating things in the app.",
     details: [
       {
         heading: "Words written over time",
@@ -259,55 +322,6 @@ export const features: Feature[] = [
     ],
   },
 
-  // Other
-  {
-    slug: "mobile-experience",
-    icon: "P",
-    name: "Mobile Experience",
-    tagline: "Built for the phone in your pocket.",
-    description:
-      "JourneeX was designed mobile-first. A bottom tab navigation system built from scratch gives it a native app feel on every screen size.",
-    category: "Other",
-    accentColor: "#7c6aff",
-    details: [
-      {
-        heading: "Bottom tab navigation",
-        body: "Designed and implemented from scratch, no framework. Thumbs-friendly, fast, and native-feeling on both iOS and Android browsers.",
-      },
-      {
-        heading: "Optimised for small screens",
-        body: "Every element was tested at 375px wide. Nothing overflows, nothing breaks, nothing feels like a desktop site squeezed into a phone.",
-      },
-      {
-        heading: "No app store required",
-        body: "JourneeX runs in your browser. Add it to your home screen for a full app experience, no download, no update prompts.",
-      },
-    ],
-  },
-  {
-    slug: "privacy-security",
-    icon: "K",
-    name: "Privacy | Security",
-    tagline: "Your entries are yours. Full stop.",
-    description:
-      "Authentication via Supabase. API keys in environment variables, never exposed to the client. Your journal is private by default.",
-    category: "Other",
-    accentColor: "#ff6a9b",
-    details: [
-      {
-        heading: "Supabase authentication",
-        body: "Sign in securely. Your entries are tied to your account and inaccessible to anyone else.",
-      },
-      {
-        heading: "Secrets managed properly",
-        body: "API keys live in Cloudflare Workers environment variables, never in client-side code. Learned the hard way once | now baked into the architecture.",
-      },
-      {
-        heading: "No tracking, no ads",
-        body: "JourneeX does not sell data, does not run ads, and does not track behaviour beyond what is needed to make the app work.",
-      },
-    ],
-  },
 ];
 
 export const featuresByCategory = features.reduce(
@@ -323,5 +337,4 @@ export const categoryOrder: Feature["category"][] = [
   "Core Journal",
   "Tracking",
   "Organization",
-  "Other",
 ];

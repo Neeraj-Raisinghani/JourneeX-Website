@@ -1,96 +1,228 @@
 "use client";
 import Link from "next/link";
-
-const links = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Product", href: "/product" },
-  { label: "Changelog", href: "/changelog" },
-  { label: "Contact", href: "/contact" },
-];
-
-const social = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/neerajraisinghani/" },
-  { label: "Portfolio", href: "https://neerajraisinghani.com" },
-  { label: "Email", href: "mailto:neeraj@neerajraisinghani.com" },
-];
+import { useState } from "react";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) setSubmitted(true);
+  };
+
   return (
-    <footer style={{ borderTop: "1px solid var(--border)", padding: "56px 0" }}>
-      <div className="container">
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "space-between", gap: "40px", marginBottom: "48px" }}>
-          <div style={{ maxWidth: "220px" }}>
-            <div className="gradient-text" style={{ fontWeight: 700, fontSize: "1.2rem", marginBottom: "8px" }}>JourneeX</div>
-            <p style={{ fontSize: "0.875rem", color: "var(--text-dim)", margin: "0 0 20px 0" }}>
-              Write your day. Hear it back.
-            </p>
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-              {social.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target={s.href.startsWith("mailto") ? undefined : "_blank"}
-                  rel="noopener noreferrer"
-                  style={{
-                    fontSize: "0.75rem",
-                    color: "var(--text-dim)",
-                    textDecoration: "none",
-                    padding: "5px 10px",
-                    borderRadius: "6px",
-                    border: "1px solid var(--border)",
-                    transition: "color 0.2s, border-color 0.2s",
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = "var(--text)"; e.currentTarget.style.borderColor = "var(--accent)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = "var(--text-dim)"; e.currentTarget.style.borderColor = "var(--border)"; }}
-                >
-                  {s.label}
-                </a>
-              ))}
-            </div>
+    <footer className="footer">
+      {/* Big background brand text */}
+      <div className="footer-bg-text">JourneeX</div>
+
+      <div className="container" style={{ position: "relative", zIndex: 1, paddingTop: "80px", paddingBottom: "60px" }}>
+        {/* Footer grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "2fr 1fr 1fr 1fr",
+            gap: "60px",
+            marginBottom: "60px",
+          }}
+          className="footer-grid"
+        >
+          {/* Brand + newsletter */}
+          <div>
+            <h2
+              className="display"
+              style={{
+                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                fontWeight: 800,
+                letterSpacing: "-0.02em",
+                color: "var(--text-light)",
+                margin: "0 0 32px 0",
+                lineHeight: 1.2,
+              }}
+            >
+              Write your day.<br />
+              <span style={{ color: "var(--text-light-muted)", fontStyle: "italic", fontWeight: 400 }}>
+                Hear it back.
+              </span>
+            </h2>
+
+            <a
+              href="https://app.journeex.neerajraisinghani.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-block",
+                marginTop: "8px",
+                padding: "12px 28px",
+                fontWeight: 700,
+                fontSize: "0.875rem",
+                letterSpacing: "0.04em",
+                color: "#000",
+                background: "#fff",
+                textDecoration: "none",
+                border: "2px solid #fff",
+                transition: "opacity 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              Start journaling
+            </a>
           </div>
 
-          <nav style={{ display: "flex", flexWrap: "wrap", gap: "8px 4px" }}>
-            {links.map((l) => (
-              <Link key={l.href} href={l.href} className="nav-link" style={{ fontSize: "0.875rem" }}>
+          {/* Product */}
+          <div>
+            <h4
+              style={{
+                fontSize: "0.68rem",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--text-light-muted)",
+                margin: "0 0 20px 0",
+              }}
+            >
+              Product
+            </h4>
+            {[
+              { label: "Features", href: "/product" },
+              { label: "Changelog", href: "/changelog" },
+            ].map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                style={{
+                  display: "block",
+                  fontSize: "0.875rem",
+                  color: "var(--text-light-muted)",
+                  textDecoration: "none",
+                  marginBottom: "10px",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-light)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-light-muted)")}
+              >
                 {l.label}
               </Link>
             ))}
-          </nav>
+          </div>
 
-          <a
-            href="https://app.journeex.neerajraisinghani.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary"
-            style={{ fontSize: "0.875rem", padding: "10px 22px" }}
-          >
-            Try it live
-          </a>
+          {/* Information */}
+          <div>
+            <h4
+              style={{
+                fontSize: "0.68rem",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--text-light-muted)",
+                margin: "0 0 20px 0",
+              }}
+            >
+              Information
+            </h4>
+            {[
+              { label: "About", href: "/about" },
+              { label: "FAQ", href: "/faq" },
+              { label: "Contact", href: "/contact" },
+            ].map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                style={{
+                  display: "block",
+                  fontSize: "0.875rem",
+                  color: "var(--text-light-muted)",
+                  textDecoration: "none",
+                  marginBottom: "10px",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-light)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-light-muted)")}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4
+              style={{
+                fontSize: "0.68rem",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--text-light-muted)",
+                margin: "0 0 20px 0",
+              }}
+            >
+              Contact
+            </h4>
+            {[
+              { label: "Try JourneeX", href: "https://app.journeex.neerajraisinghani.com/", external: true },
+              { label: "LinkedIn", href: "https://www.linkedin.com/in/neerajraisinghani/", external: true },
+              { label: "Portfolio", href: "https://neerajraisinghani.com", external: true },
+              { label: "Email", href: "mailto:neeraj@neerajraisinghani.com", external: false },
+            ].map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                target={l.external ? "_blank" : undefined}
+                rel={l.external ? "noopener noreferrer" : undefined}
+                style={{
+                  display: "block",
+                  fontSize: "0.875rem",
+                  color: "var(--text-light-muted)",
+                  textDecoration: "none",
+                  marginBottom: "10px",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-light)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-light-muted)")}
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
         </div>
 
+        {/* Bottom row */}
         <div
           style={{
+            borderTop: "1px solid var(--border-dark)",
             paddingTop: "24px",
-            borderTop: "1px solid var(--border)",
             display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
             justifyContent: "space-between",
+            flexWrap: "wrap",
             gap: "12px",
           }}
         >
-          <p style={{ fontSize: "0.8rem", color: "var(--text-dim)", margin: 0 }}>
-            &copy; {new Date().getFullYear()} JourneeX. All rights reserved.
-          </p>
-          <p style={{ fontSize: "0.8rem", color: "var(--text-dim)", margin: 0 }}>
-            Built by{" "}
-            <a href="https://neerajraisinghani.com" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-muted)", textDecoration: "none" }}>
-              Neeraj Raisinghani
+          <span style={{ fontSize: "0.78rem", color: "var(--text-light-muted)" }}>
+            Copyright &copy; {new Date().getFullYear()} <em>JourneeX</em>
+          </span>
+          <span style={{ fontSize: "0.78rem", color: "var(--text-light-muted)" }}>
+            Product by{" "}
+            <a
+              href="https://neerajraisinghani.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "var(--text-light-muted)", textDecoration: "underline" }}
+            >
+              @neerajraisinghani
             </a>
-          </p>
+          </span>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 991px) {
+          .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
+        }
+        @media (max-width: 640px) {
+          .footer-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </footer>
   );
 }

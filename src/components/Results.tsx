@@ -1,4 +1,4 @@
-const stats = [
+﻿const stats = [
   { value: "<800ms", label: "Global cold load", sub: "via Cloudflare edge" },
   { value: "250", label: "Max words per AI reflection", sub: "pure prose, no bullet points" },
   { value: "∞", label: "Infrastructure cost", sub: "zero, at current scale" },
@@ -78,9 +78,9 @@ export default function Results() {
           <p className="text-lg sm:text-xl font-medium leading-relaxed">
             "In AI-powered products,{" "}
             <span className="gradient-text font-bold">the prompt is the product.</span>{" "}
-            The underlying technology was straightforward — the hard work was
+            The underlying technology was straightforward - the hard work was
             figuring out exactly what to say to Claude to get it to respond the way
-            a human would. Tone, word choice, constraints, length limits — all of
+            a human would. Tone, word choice, constraints, length limits - all of
             it matters enormously."
           </p>
         </div>

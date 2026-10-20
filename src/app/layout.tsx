@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "700", "800", "900"],
+  style: ["normal", "italic"],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -13,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | JourneeX",
   },
   description:
-    "JourneeX is a personal AI journal. Write your day and get a warm, human reflection back, powered by Claude. Free to use.",
+    "JourneeX is a personal AI journal. Write your day and get a warm, human reflection back, powered by Claude.",
   keywords: [
     "AI journal",
     "personal journal app",
@@ -42,25 +48,19 @@ export const metadata: Metadata = {
     description: "A personal AI journal that reads what you write and reflects it back, warm, human, and honest.",
     creator: "@neerajraisinghani",
   },
-  robots: {
-    index: false,
-    follow: false,
-    googleBot: {
-      index: false,
-      follow: false,
-    },
+  robots: { index: false, follow: false },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{ background: "var(--bg)", color: "var(--text)" }}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}>
         <Navbar />
-        {children}
+        <div style={{ paddingTop: "64px" }}>{children}</div>
         <Footer />
       </body>
     </html>

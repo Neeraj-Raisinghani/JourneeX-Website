@@ -1,47 +1,115 @@
+﻿"use client";
 import Link from "next/link";
 import { features } from "@/data/features";
-
-const accentClass: Record<string, string> = {
-  "#7c6aff": "feature-card-purple",
-  "#22d3a5": "feature-card-teal",
-  "#ff6a9b": "feature-card-pink",
-};
+import ScrollReveal from "./ScrollReveal";
 
 export default function Features() {
   const preview = features.slice(0, 6);
 
   return (
-    <section className="section-alt">
+    <section className="section" style={{ background: "var(--surface)" }}>
       <div className="container">
-        <div className="section-header">
-          <span className="eyebrow">Features</span>
-          <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.15, margin: "0 0 20px 0" }}>
-            Everything you need to{" "}
-            <span className="gradient-text">actually journal</span>
-          </h2>
-          <p style={{ fontSize: "1.05rem", lineHeight: 1.8, color: "var(--text-muted)", margin: 0 }}>
-            From AI reflections to habit tracking. Built around one thing: making
-            it easier to show up and write.
-          </p>
-        </div>
+        {/* Heading */}
+        <ScrollReveal>
+          <div className="page-heading-parent">
+            <h1>Features</h1>
+            <hr className="line-grey" />
+          </div>
+        </ScrollReveal>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-gap)" }}>
-          {preview.map((f) => (
-            <Link key={f.slug} href={`/product/${f.slug}`} className={`feature-card ${accentClass[f.accentColor] ?? "feature-card-purple"}`}>
-              <div style={{ width: "36px", height: "36px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.85rem", fontWeight: 700, marginBottom: "20px", background: f.accentColor + "18", color: f.accentColor }}>
-                {f.name.charAt(0)}
-              </div>
-              <h3 style={{ fontSize: "0.975rem", fontWeight: 600, marginBottom: "8px" }}>{f.name}</h3>
-              <p style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "var(--text-muted)", marginBottom: "20px" }}>{f.tagline}</p>
-              <span style={{ fontSize: "0.78rem", fontWeight: 600, color: f.accentColor }}>Learn more</span>
-            </Link>
-          ))}
-        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "80px",
+            alignItems: "flex-start",
+          }}
+          className="features-layout"
+        >
+          {/* Left: intro text */}
+          <ScrollReveal delay={80}>
+            <div>
+              <p
+                className="display"
+                style={{
+                  fontSize: "clamp(1.1rem, 1.8vw, 1.35rem)",
+                  fontStyle: "italic",
+                  lineHeight: 1.75,
+                  color: "var(--text-muted)",
+                  margin: "0 0 32px 0",
+                  fontWeight: 400,
+                }}
+              >
+                Everything you need to{" "}
+                <span className="highlighted-text">actually journal</span>.
+                From AI reflections to habit tracking - built around one thing:
+                making it easier to{" "}
+                <span className="highlighted-text">show up and write</span>.
+              </p>
+              <Link href="/product" className="btn-ghost">
+                View all {features.length} features
+              </Link>
+            </div>
+          </ScrollReveal>
 
-        <div style={{ marginTop: "40px" }}>
-          <Link href="/product" className="btn-ghost">View all {features.length} features</Link>
+          {/* Right: feature list */}
+          <div>
+            {preview.map((f, i) => (
+              <ScrollReveal key={f.slug} delay={i * 60}>
+                <Link
+                  href={`/product/${f.slug}`}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    gap: "16px",
+                    borderBottom: "1px solid var(--border)",
+                    padding: "20px 0",
+                    textDecoration: "none",
+                    color: "inherit",
+                    transition: "padding-left 0.2s",
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.paddingLeft = "8px"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.paddingLeft = "0"; }}
+                >
+                  <div style={{ display: "flex", gap: "16px", alignItems: "flex-start", flex: 1 }}>
+                    <span
+                      style={{
+                        fontSize: "0.68rem",
+                        fontWeight: 700,
+                        color: "var(--text-dim)",
+                        paddingTop: "4px",
+                        minWidth: "20px",
+                        letterSpacing: "0.05em",
+                      }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <div
+                        className="display"
+                        style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "4px", letterSpacing: "-0.01em" }}
+                      >
+                        {f.name}
+                      </div>
+                      <div style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
+                        {f.tagline}
+                      </div>
+                    </div>
+                  </div>
+                  <span style={{ fontSize: "0.8rem", color: "var(--text-dim)", paddingTop: "4px", flexShrink: 0 }}>→</span>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 767px) {
+          .features-layout { grid-template-columns: 1fr !important; gap: 48px !important; }
+        }
+      `}</style>
     </section>
   );
 }

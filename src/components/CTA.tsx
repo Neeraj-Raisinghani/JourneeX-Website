@@ -1,30 +1,105 @@
+"use client";
+import ScrollReveal from "./ScrollReveal";
+
 export default function CTA() {
   return (
-    <section className="section">
-      <div className="container">
+    <section
+      style={{
+        background: "var(--bg-dark)",
+        color: "var(--text-light)",
+        padding: "100px 0",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Background large text */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: -20,
+          right: -8,
+          fontFamily: "var(--font-playfair), Georgia, serif",
+          fontSize: "clamp(8rem, 20vw, 22rem)",
+          fontWeight: 900,
+          color: "rgba(255,255,255,0.025)",
+          whiteSpace: "nowrap",
+          pointerEvents: "none",
+          userSelect: "none",
+          lineHeight: 1,
+          letterSpacing: "-0.04em",
+        }}
+      >
+        WRITE
+      </div>
+
+      <div className="container" style={{ position: "relative", zIndex: 1 }}>
+        <ScrollReveal>
+          <div className="page-heading-parent">
+            <h1 style={{ color: "var(--text-light)" }}>Start Journaling</h1>
+            <hr className="line-dark" />
+          </div>
+        </ScrollReveal>
+
         <div
-          className="card-lg"
-          style={{ position: "relative", overflow: "hidden" }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "80px",
+            alignItems: "center",
+          }}
+          className="cta-grid"
         >
-          <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(ellipse at 60% 0%, rgba(124,106,255,0.15) 0%, transparent 60%)" }} />
-          <div style={{ position: "relative", zIndex: 1, maxWidth: "560px" }}>
-            <h2 style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.15, marginBottom: "20px" }}>
-              Ready to write your day?
-            </h2>
-            <p style={{ fontSize: "1.05rem", lineHeight: 1.75, color: "var(--text-muted)", marginBottom: "36px" }}>
-              JourneeX is live and free to use. Write something and see what comes back.
+          <ScrollReveal delay={80}>
+            <p
+              className="display"
+              style={{
+                fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
+                fontStyle: "italic",
+                lineHeight: 1.75,
+                color: "var(--text-light-muted)",
+                margin: 0,
+                fontWeight: 400,
+              }}
+            >
+              JourneeX is <span style={{ background: "var(--highlight)", color: "#000", padding: "0 3px" }}>live</span>.
+              Write something and see what comes back.
             </p>
-            <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "center" }}>
-              <a href="https://app.journeex.neerajraisinghani.com/" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontSize: "1rem", padding: "14px 32px" }}>
+          </ScrollReveal>
+
+          <ScrollReveal delay={160}>
+            <div>
+              <a
+                href="https://app.journeex.neerajraisinghani.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "block",
+                  padding: "14px 36px",
+                  fontWeight: 700,
+                  fontSize: "0.9rem",
+                  letterSpacing: "0.04em",
+                  color: "#000",
+                  background: "#fff",
+                  textDecoration: "none",
+                  border: "2px solid #fff",
+                  transition: "opacity 0.2s",
+                  textAlign: "center",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+              >
                 Open JourneeX
               </a>
-              <span style={{ fontSize: "0.82rem", color: "var(--text-dim)" }}>
-                Free, no credit card needed
-              </span>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 767px) {
+          .cta-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+        }
+      `}</style>
     </section>
   );
 }

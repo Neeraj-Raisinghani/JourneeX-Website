@@ -4,7 +4,6 @@ export default function About() {
       <div className="container">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "80px", alignItems: "start" }}>
           <div>
-            <span className="eyebrow">About the builder</span>
             <h2 style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.15, margin: "0 0 24px 0" }}>
               Built solo, from idea to{" "}
               <span className="gradient-text">live product</span>
@@ -35,8 +34,7 @@ export default function About() {
               close friend would listen and respond.
             </p>
             <p style={{ fontSize: "0.95rem", lineHeight: 1.85, color: "var(--text-muted)", margin: 0 }}>
-              It is live, it is free, and every word it says back to you was shaped by
-              hundreds of prompt iterations until it finally felt human.
+              Every word it says back to you was shaped by hundreds of prompt iterations until it finally felt human.
             </p>
           </div>
         </div>
