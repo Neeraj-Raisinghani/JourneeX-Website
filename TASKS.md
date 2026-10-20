@@ -20,6 +20,7 @@
 - [ ] **Contact form backend** — Current form uses `mailto:` which opens the visitor's email client. This is unreliable on mobile and many browsers. Replace with a real backend so that: (1) submissions are delivered to `neeraj@neerajraisinghani.com` automatically, (2) submissions are stored somewhere (database or a tool like Notion/Airtable) for reference. Options: Resend + Supabase (already used in the app), or a form service like Formspree. Also add spam protection (honeypot or Turnstile) once a backend endpoint exists.
 - [ ] **Image compression** — Check `public/` folder manually for uncompressed images.
 - [ ] **Update email address** — Replace `neeraj@neerajraisinghani.com` used throughout the site (footer, contact page, privacy policy, terms) with the official JourneeX contact email once decided.
+- [ ] **Meta titles and descriptions for all pages** — Each page currently has a basic title and description set via Next.js `metadata` export. Review and update all of them before going live. Pages to update: `/` (homepage, in `layout.tsx`), `/about`, `/product`, `/faq`, `/contact`, `/privacy`, `/terms`. Each title should follow the pattern `Page Name | JourneeX` and the description should be a specific, compelling one-liner (under 160 characters) that reflects the page content, not a generic tagline. Also verify `openGraph.title` and `openGraph.description` in `layout.tsx` match.
 
 ## Features
 
