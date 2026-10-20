@@ -157,6 +157,7 @@ export default function FAQPage() {
             <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "flex-end" }}>
               <a
                 href="mailto:neeraj@neerajraisinghani.com"
+                className="faq-email-btn"
                 style={{
                   display: "inline-block",
                   padding: "12px 28px",
@@ -170,8 +171,6 @@ export default function FAQPage() {
                   whiteSpace: "nowrap",
                   transition: "opacity 0.2s",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
               >
                 Email
               </a>
@@ -203,6 +202,7 @@ export default function FAQPage() {
         @media (max-width: 767px) {
           .faq-cta-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
         }
+        .faq-email-btn:hover { opacity: 0.75; }
       `}</style>
     </main>
   );
