@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "FAQ | JourneeX",
-  description: "Answers to the most common questions about JourneeX - how it works, privacy, AI reflections, and more.",
+  description: "How does the AI reflection work? Is your journal private? Can you delete your data? All the answers to common JourneeX questions, in one place.",
 };
 
 const faqs = [
@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: "Is it just generic wellness advice?",
-    a: "No. That's exactly what we built against. The AI only knows what you tell it in that entry. It won't give you generic affirmations. It responds to the specific thing you wrote.",
+    a: "No. JourneeX was built against that. The AI only knows what you tell it in that entry. It won't give you generic affirmations. It responds to the specific thing you wrote.",
   },
   {
     q: "What is the weekly AI summary?",
@@ -37,7 +37,7 @@ const faqs = [
   },
   {
     q: "Does JourneeX use my entries to train AI?",
-    a: "No. Your entries are never used to train AI models. The AI reads your entry to generate a reflection, and that's it. We do not store or pass your content to any third party beyond what is necessary to generate your reflection.",
+    a: "No. Your entries are never used to train AI models. The AI reads your entry to generate a reflection, and that's it. Your content is never stored or passed to any third party beyond what is necessary to generate your reflection.",
   },
   {
     q: "What features are included?",
@@ -156,7 +156,7 @@ export default function FAQPage() {
             </h2>
             <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "flex-end" }}>
               <a
-                href="mailto:neeraj@neerajraisinghani.com"
+                href="mailto:journeex@neerajraisinghani.com"
                 className="faq-email-btn"
                 style={{
                   display: "inline-block",

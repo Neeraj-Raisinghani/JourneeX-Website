@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About | JourneeX",
-  description: "How JourneeX works, the philosophy behind it, and the story of how it was built.",
+  description: "Built by Neeraj Raisinghani as a tool for honest self-reflection. The philosophy, the process, and the person behind JourneeX.",
 };
 
 export default function AboutPage() {
@@ -288,12 +288,12 @@ export default function AboutPage() {
                 fontWeight: 400,
               }}
             >
-              Built <span style={{ background: "var(--highlight)", color: "#000", padding: "0 3px" }}>solo</span> by{" "}
+              Built <span className="highlighted-text">solo</span> by{" "}
               <span style={{ color: "var(--text-light)" }}>Neeraj Raisinghani</span> - product,
               design, and development, all one person.
               JourneeX started as a question: what if your journal could write back?
             </p>
-            <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "flex-end" }}>
+            <div className="builder-btns" style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "flex-end" }}>
               <a
                 href="https://app.journeex.neerajraisinghani.com/"
                 target="_blank"
@@ -333,7 +333,7 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-        <style>{`@media(max-width:767px){.builder-grid{grid-template-columns:1fr!important;gap:40px!important}}`}</style>
+        <style>{`@media(max-width:767px){.builder-grid{grid-template-columns:1fr!important;gap:40px!important} .builder-btns{justify-content:flex-start!important}}`}</style>
       </section>
     </main>
   );

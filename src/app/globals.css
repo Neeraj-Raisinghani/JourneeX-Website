@@ -16,6 +16,21 @@
   --highlight: #f5e642;
 
   --space-section: 100px;
+
+  /* ── Typography spacing tokens ── */
+  --lh-body: 1.75;
+  --lh-heading: 1.15;
+  --lh-display: 1;
+  --lh-tight: 0.95;
+
+  --ls-body: 0.01em;
+  --ls-heading: -0.02em;
+  --ls-display: -0.03em;
+  --ls-display-large: -0.04em;
+  --ls-nav: 0.02em;
+  --ls-btn: 0.04em;
+  --ls-eyebrow: 0.16em;
+  --ls-label: 0.12em;
 }
 
 /* ── Custom scrollbar ─────────────────────────────────────────── */
@@ -30,14 +45,19 @@
 
 /* ── Reset ────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: auto; }
+html {
+  scroll-behavior: auto;
+  overflow-x: clip;
+  max-width: 100%;
+}
 body {
   background-color: var(--bg-dark);
   color: var(--text);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
 }
 body.nav-open { overflow: hidden; }
 ::selection { background: var(--highlight); color: var(--text); }
@@ -48,9 +68,10 @@ body.nav-open { overflow: hidden; }
 }
 
 /* ── Highlighted text (yellow like The Pub) ───────────────────── */
+:root { --highlight-padding: 0 3px; }
 .highlighted-text {
   background: var(--highlight);
-  padding: 0 3px;
+  padding: var(--highlight-padding);
   color: var(--text);
 }
 
@@ -84,7 +105,7 @@ body.nav-open { overflow: hidden; }
   font-family: var(--font-playfair), Georgia, serif;
   font-size: 1.35rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--ls-heading);
   color: #fff;
   text-decoration: none;
 }
@@ -107,7 +128,7 @@ body.nav-open { overflow: hidden; }
 .pub-desktop-link {
   font-size: 0.82rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: var(--ls-nav);
   color: var(--text-light-muted);
   text-decoration: none;
   transition: color 0.2s;
@@ -127,7 +148,7 @@ body.nav-open { overflow: hidden; }
   padding: 8px 22px;
   font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-btn);
   color: #000;
   background: #fff;
   text-decoration: none;
@@ -143,7 +164,7 @@ body.nav-open { overflow: hidden; }
   padding: 8px 22px;
   font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-btn);
   color: #fff;
   background: transparent;
   text-decoration: none;
@@ -212,7 +233,7 @@ body.nav-open { overflow: hidden; }
 .pub-nav-toggle-text {
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: var(--ls-eyebrow);
   text-transform: uppercase;
   color: var(--text-light-muted);
 }
@@ -229,8 +250,8 @@ body.nav-open { overflow: hidden; }
   font-weight: 700;
   color: var(--text-light);
   text-decoration: none;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
   border-bottom: 1px solid var(--border-dark);
   padding: 12px 0;
   transition: color 0.2s, padding-left 0.2s;
@@ -266,7 +287,7 @@ body.nav-open { overflow: hidden; }
   font-family: var(--font-playfair), Georgia, serif;
   font-size: clamp(1.8rem, 3vw, 2.2rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--ls-heading);
   margin: 0 0 12px;
 }
 .line-grey {
@@ -300,7 +321,7 @@ body.nav-open { overflow: hidden; }
   padding: 12px 30px;
   font-weight: 700;
   font-size: 0.875rem;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-btn);
   color: var(--bg);
   background: var(--text);
   text-decoration: none;
@@ -315,7 +336,7 @@ body.nav-open { overflow: hidden; }
   padding: 12px 30px;
   font-weight: 700;
   font-size: 0.875rem;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-btn);
   border: 2px solid var(--text);
   color: var(--text);
   background: transparent;
@@ -325,11 +346,28 @@ body.nav-open { overflow: hidden; }
 }
 .btn-ghost:hover { background: var(--text); color: var(--bg); }
 
+/* ── Global typography consistency ───────────────────────────── */
+p {
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  word-spacing: 0.02em;
+}
+h1, h2, h3, h4, h5, h6 {
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  word-spacing: normal;
+}
+.display {
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-display);
+  word-spacing: normal;
+}
+
 /* ── Eyebrow ──────────────────────────────────────────────────── */
 .eyebrow {
   font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: var(--ls-eyebrow);
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: 16px;
@@ -354,9 +392,44 @@ body.nav-open { overflow: hidden; }
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
-  line-height: 1;
-  letter-spacing: -0.04em;
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display-large);
 }
+
+/* ── Uniform section spacing on mobile ───────────────────────── */
+/* Targets only sections that use the .section-pad utility (not hero/sticky) */
+@media (max-width: 767px) {
+  .section-pad { padding-top: 72px !important; padding-bottom: 72px !important; }
+}
+@media (max-width: 640px) {
+  .section { padding-top: 56px !important; padding-bottom: 56px !important; }
+  .section-pad { padding-top: 56px !important; padding-bottom: 56px !important; }
+}
+
+/* ── Footer mobile ────────────────────────────────────────────── */
+.footer-inner {
+  padding-top: 80px;
+  padding-bottom: 60px;
+}
+@media (max-width: 767px) {
+  .footer-inner { padding-top: 56px !important; padding-bottom: 48px !important; }
+  .footer-grid { margin-bottom: 40px !important; }
+}
+@media (max-width: 640px) {
+  .footer-inner { padding-top: 48px !important; padding-bottom: 40px !important; }
+  .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+  .footer-bottom-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+  .footer-bottom-links {
+    gap: 12px !important;
+  }
+}
+
+/* ── Hide reCAPTCHA badge (disclosure shown inline on contact form) ── */
+.grecaptcha-badge { visibility: hidden !important; }
 
 /* ── Animations ───────────────────────────────────────────────── */
 @keyframes fadeUp {

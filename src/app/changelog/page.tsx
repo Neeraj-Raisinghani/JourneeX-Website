@@ -2,7 +2,7 @@
 
 export const metadata: Metadata = {
   title: "Changelog | JourneeX",
-  description: "What is new in JourneeX. Every update, improvement, and new feature documented.",
+  description: "Every JourneeX update, new feature, and improvement — documented in order. See what's changed and what's coming next.",
 };
 
 const entries = [
@@ -117,7 +117,7 @@ const entries = [
     tag: "Improvement",
     title: "Prompt refinements & Mobile UX",
     summary:
-      "We rewrote the reflection prompt from scratch. The previous version was too clinical. The new version is warmer, more specific to what you actually wrote, and shorter when it has less to say.",
+      "The reflection prompt was rewritten from scratch. The previous version was too clinical. The new version is warmer, more specific to what you actually wrote, and shorter when it has less to say.",
     items: [
       { heading: "Warmer reflections", body: "Multiple rounds of prompt tuning. The new version references what you actually wrote rather than producing generic wellness copy." },
       { heading: "Prose only output", body: "Removed all clinical formatting from AI output. No bullet points, no bold headers, no numbered steps. Pure prose." },
@@ -159,7 +159,7 @@ const entries = [
     tag: "Launch",
     title: "JourneeX ships",
     summary:
-      "Write. Save. Receive a reflection. That is the whole product. We wanted to see if a journal that talks back felt useful before adding anything else. It did.",
+      "Write. Save. Receive a reflection. That is the whole product. The question was whether a journal that talks back felt useful before adding anything else. It did.",
     items: [
       { heading: "Core journaling flow", body: "Write an entry, save it, receive a reflection. That is the entire loop. Nothing more, nothing less." },
       { heading: "Authentication and storage", body: "Supabase handles sign-in and entry storage. Your entries are private and yours." },
@@ -205,7 +205,7 @@ export default function ChangelogPage() {
     <main style={{ paddingTop: "64px" }}>
 
       {/* ── HERO ── */}
-      <section style={{ background: "var(--bg-dark)", color: "var(--text-light)", padding: "100px 0 80px", position: "relative", overflow: "hidden" }}>
+      <section className="section-pad" style={{ background: "var(--bg-dark)", color: "var(--text-light)", padding: "100px 0 80px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", bottom: -20, left: -8, fontFamily: "var(--font-playfair), Georgia, serif", fontSize: "clamp(6rem, 18vw, 20rem)", fontWeight: 900, color: "rgba(255,255,255,0.025)", whiteSpace: "nowrap", pointerEvents: "none", lineHeight: 1, letterSpacing: "-0.04em" }}>
           CHANGELOG
         </div>
@@ -230,7 +230,7 @@ export default function ChangelogPage() {
               <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: "64px", padding: "56px 0 72px", alignItems: "start" }} className="cl-content-grid">
 
                 {/* Left: meta */}
-                <div style={{ position: "sticky", top: "88px" }}>
+                <div className="cl-meta" style={{ position: "sticky", top: "88px" }}>
                   <span style={{ display: "inline-block", padding: "4px 10px", fontSize: "0.58rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", fontFamily: "monospace", background: tagStyle[entry.tag]?.bg, color: tagStyle[entry.tag]?.color, marginBottom: "16px" }}>
                     {entry.tag}
                   </span>
@@ -247,7 +247,7 @@ export default function ChangelogPage() {
                     {entry.summary}
                   </p>
                   {/* Banner — sits between summary and change list */}
-                  <div style={{ width: "75%", aspectRatio: "16/9", overflow: "hidden", marginBottom: "36px", borderRadius: "16px" }}>
+                  <div className="cl-banner" style={{ width: "75%", aspectRatio: "16/9", overflow: "hidden", marginBottom: "36px", borderRadius: "16px" }}>
                     {entry.banner}
                   </div>
                   <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -268,7 +268,7 @@ export default function ChangelogPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section style={{ background: "var(--bg-dark)", borderTop: "1px solid var(--border-dark)", padding: "100px 0", position: "relative", overflow: "hidden" }}>
+      <section className="section-pad" style={{ background: "var(--bg-dark)", borderTop: "1px solid var(--border-dark)", padding: "100px 0", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", bottom: -60, right: -40, fontFamily: "var(--font-playfair), Georgia, serif", fontSize: "clamp(12rem, 32vw, 34rem)", fontWeight: 900, color: "rgba(255,255,255,0.02)", pointerEvents: "none", lineHeight: 1, letterSpacing: "-0.04em" }}>J</div>
         <div className="container" style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", justifyContent: "space-between", gap: "48px", flexWrap: "wrap" }}>
           <div>
@@ -287,7 +287,11 @@ export default function ChangelogPage() {
 
       <style>{`
         @media (max-width: 767px) {
-          .cl-content-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+          .cl-content-grid { grid-template-columns: 1fr !important; gap: 16px !important; padding: 40px 0 56px !important; }
+          .cl-meta { position: static !important; display: flex !important; align-items: center !important; gap: 12px !important; }
+          .cl-meta > span { margin-bottom: 0 !important; }
+          .cl-meta > div:first-of-type { margin-bottom: 0 !important; }
+          .cl-banner { width: 100% !important; margin-bottom: 28px !important; }
         }
       `}</style>
     </main>

@@ -2,9 +2,38 @@
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
+import Script from "next/script";
 import PhoneInput, { getCountryCallingCode as getCode } from "react-phone-number-input";
 import type { Country } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+
+const RECAPTCHA_SITE_KEY = "6Lda6w4uAAAAAPcRvjWiMOGIT4veJF2qw_wpDUTk";
+
+declare global {
+  interface Window {
+    grecaptcha: {
+      enterprise: {
+        ready: (cb: () => void) => void;
+        execute: (siteKey: string, opts: { action: string }) => Promise<string>;
+      };
+    };
+  }
+}
+
+async function getRecaptchaToken(): Promise<string | undefined> {
+  try {
+    return await new Promise<string>((resolve) => {
+      window.grecaptcha.enterprise.ready(async () => {
+        const token = await window.grecaptcha.enterprise.execute(RECAPTCHA_SITE_KEY, {
+          action: "CONTACT",
+        });
+        resolve(token);
+      });
+    });
+  } catch {
+    return undefined;
+  }
+}
 
 type CountrySelectProps = {
   value: Country;
@@ -226,7 +255,9 @@ export default function ContactForm() {
       .catch(() => {});
   }, []);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const [submitting, setSubmitting] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const name = (fd.get("name") as string || "").trim();
@@ -246,17 +277,39 @@ export default function ContactForm() {
 
     setErrors({});
     setSubmitError("");
-    window.location.href = `mailto:neeraj@neerajraisinghani.com?subject=Message from ${name}&body=${message}%0A%0APhone: ${phone || "Not provided"}%0AReply to: ${email}`;
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setPhone(undefined);
-      setFormKey((k) => k + 1);
-    }, 5000);
+    setSubmitting(true);
+
+    try {
+      const recaptchaToken = await getRecaptchaToken();
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone: phone || undefined, message, recaptchaToken }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setSubmitError(data.error || "Something went wrong. Please try again.");
+        return;
+      }
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setPhone(undefined);
+        setFormKey((k) => k + 1);
+      }, 5000);
+    } catch {
+      setSubmitError("Could not send your message. Please check your connection and try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
     <section style={{ background: "var(--bg)", minHeight: "calc(100vh - 64px)", display: "flex", alignItems: "center", padding: "80px 0" }}>
+      <Script
+        src={`https://www.google.com/recaptcha/enterprise.js?render=${RECAPTCHA_SITE_KEY}`}
+        strategy="lazyOnload"
+      />
       <div className="container" style={{ width: "100%" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: "72px", alignItems: "center" }} className="contact-grid">
 
@@ -273,7 +326,7 @@ export default function ContactForm() {
             />
             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               {[
-                { label: "Start a conversation", detail: "neeraj@neerajraisinghani.com", href: "mailto:neeraj@neerajraisinghani.com" },
+                { label: "Start a conversation", detail: "journeex@neerajraisinghani.com", href: "mailto:journeex@neerajraisinghani.com" },
                 { label: "Connect on LinkedIn", detail: "linkedin.com/in/neerajraisinghani", href: "https://www.linkedin.com/in/neerajraisinghani/" },
                 { label: "See my work", detail: "neerajraisinghani.com", href: "https://neerajraisinghani.com" },
               ].map((c) => (
@@ -385,14 +438,23 @@ export default function ContactForm() {
                   </div>
                 )}
 
+                {/* Consent */}
+                <p style={{ margin: "0", fontSize: "0.75rem", color: "var(--text-dim)", lineHeight: 1.6 }}>
+                  By submitting, you agree to the{" "}
+                  <a href="/privacy" style={{ color: "var(--text-muted)", fontWeight: 600 }}>Privacy Policy</a>
+                  {" "}and{" "}
+                  <a href="/terms" style={{ color: "var(--text-muted)", fontWeight: 600 }}>Terms of Service</a>.
+                </p>
+
                 {/* Submit */}
                 <button
                   type="submit"
-                  style={{ width: "100%", padding: "12px 28px", fontWeight: 700, fontSize: "0.875rem", letterSpacing: "0.04em", color: "var(--bg)", background: "var(--text)", border: "2px solid var(--text)", cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.2s" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
-                  onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                  disabled={submitting}
+                  style={{ width: "100%", padding: "12px 28px", fontWeight: 700, fontSize: "0.875rem", letterSpacing: "0.04em", color: "var(--bg)", background: "var(--text)", border: "2px solid var(--text)", cursor: submitting ? "not-allowed" : "pointer", fontFamily: "inherit", transition: "opacity 0.2s", opacity: submitting ? 0.6 : 1 }}
+                  onMouseEnter={(e) => { if (!submitting) e.currentTarget.style.opacity = "0.8"; }}
+                  onMouseLeave={(e) => { if (!submitting) e.currentTarget.style.opacity = "1"; }}
                 >
-                  Submit
+                  {submitting ? "Sending..." : "Submit"}
                 </button>
               </form>
             )}

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CookieBanner from "@/components/CookieBanner";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -16,11 +17,11 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "JourneeX | Write your day. Hear it back.",
+    default: "JourneeX | AI Journal That Reflects Back",
     template: "%s | JourneeX",
   },
   description:
-    "JourneeX is a personal AI journal. Write your day and get a warm, human reflection back.",
+    "Write your daily thoughts and get a warm, honest AI reflection back. JourneeX is the personal journal that actually responds.",
   keywords: [
     "AI journal",
     "personal journal app",
@@ -36,20 +37,29 @@ export const metadata: Metadata = {
   creator: "Neeraj Raisinghani",
   metadataBase: new URL("https://journeex.neerajraisinghani.com"),
   openGraph: {
-    title: "JourneeX | Write your day. Hear it back.",
-    description: "A personal AI journal that reads what you write and reflects it back, warm, human, and honest.",
+    title: "JourneeX | AI Journal That Reflects Back",
+    description: "Write your daily thoughts and get a warm, honest AI reflection back. JourneeX is the personal journal that actually responds.",
     url: "https://journeex.neerajraisinghani.com",
     siteName: "JourneeX",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "JourneeX — AI Journal That Reflects Back",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "JourneeX | Write your day. Hear it back.",
-    description: "A personal AI journal that reads what you write and reflects it back, warm, human, and honest.",
+    title: "JourneeX | AI Journal That Reflects Back",
+    description: "Write your daily thoughts and get a warm, honest AI reflection back. JourneeX is the personal journal that actually responds.",
     creator: "@neerajraisinghani",
+    images: ["/api/og"],
   },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
@@ -63,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <div style={{ paddingTop: "64px" }}>{children}</div>
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   );

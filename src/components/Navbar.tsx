@@ -152,7 +152,7 @@ export default function Navbar() {
           </nav>
 
           {/* Right - CTA + mobile hamburger */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
+          <div className="pub-header-right" style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
             <a
               href="https://app.journeex.neerajraisinghani.com/"
               target="_blank"
@@ -206,7 +206,7 @@ export default function Navbar() {
           <div className="pub-nav-misc">
             <a href="https://www.linkedin.com/in/neerajraisinghani/" target="_blank" rel="noopener noreferrer" className="pub-text-link">LinkedIn</a>
             <a href="https://neerajraisinghani.com" target="_blank" rel="noopener noreferrer" className="pub-text-link">Portfolio</a>
-            <a href="mailto:neeraj@neerajraisinghani.com" className="pub-text-link">Email</a>
+            <a href="mailto:journeex@neerajraisinghani.com" className="pub-text-link">Email</a>
             <a
               href="https://app.journeex.neerajraisinghani.com/"
               target="_blank"

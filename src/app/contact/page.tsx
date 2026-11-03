@@ -3,7 +3,7 @@ import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact | JourneeX",
-  description: "Get in touch with Neeraj Raisinghani, the builder behind JourneeX.",
+  description: "Have a question, idea, or just want to say hello? Send a message directly to Neeraj Raisinghani, the builder behind JourneeX.",
 };
 
 export default function ContactPage() {

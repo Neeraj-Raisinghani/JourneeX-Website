@@ -1,20 +1,26 @@
 ﻿import { featuresByCategory, categoryOrder } from "@/data/features";
+import { getFeaturedReflection } from "@/data/reflections";
 import FeatureRow from "@/components/FeatureRow";
 import TryEntry from "@/components/TryEntry";
 import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Product | JourneeX",
-  description: "Explore every feature inside JourneeX - daily entries, AI reflections, habit tracking, mood logging, search, and more.",
+  title: "Features | JourneeX",
+  description: "Daily journal entries, AI-generated reflections, mood tracking, habit streaks, weekly summaries, and full-text search — all in one private journal.",
 };
 
+// Re-render at most once a day so the featured reflection below rotates.
+export const revalidate = 86400;
+
 export default function ProductPage() {
+  const featured = getFeaturedReflection();
   return (
     <main>
 
       {/* ── 1. HERO ──────────────────────────────────────────────── */}
       <section
+        className="section-pad"
         style={{
           background: "var(--bg-dark)",
           color: "var(--text-light)",
@@ -70,7 +76,7 @@ export default function ProductPage() {
           >
             A journal built around one thing - making it easier to show up,
             write honestly, and{" "}
-            <span style={{ background: "var(--highlight)", color: "#000", padding: "0 3px", fontStyle: "normal" }}>
+            <span className="highlighted-text">
               feel heard.
             </span>
           </p>
@@ -221,6 +227,7 @@ export default function ProductPage() {
 
       {/* ── 3. WHO IT'S FOR ──────────────────────────────────────── */}
       <section
+        className="section-pad"
         style={{
           background: "var(--surface)",
           padding: "100px 0",
@@ -316,6 +323,7 @@ export default function ProductPage() {
 
       {/* ── 4. AI REFLECTION EXPLAINER ───────────────────────────── */}
       <section
+        className="section-pad"
         style={{
           background: "var(--bg-dark)",
           color: "var(--text-light)",
@@ -402,10 +410,10 @@ export default function ProductPage() {
                   margin: "0 0 28px",
                 }}
               >
-                "You mentioned feeling behind three times today. That's not a productivity problem - it sounds like the bar keeps moving. What would 'enough' actually look like?"
+                {featured.quote}
               </p>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                {["Clarity", "Self-awareness", "Reflection"].map((tag) => (
+                {featured.tags.map((tag) => (
                   <span
                     key={tag}
                     style={{
@@ -428,7 +436,7 @@ export default function ProductPage() {
       </section>
 
       {/* ── 5. ALL FEATURES — BENTO GRID ─────────────────────────── */}
-      <section style={{ background: "var(--bg)", padding: "100px 0", borderTop: "1px solid var(--border)" }}>
+      <section className="section-pad" style={{ background: "var(--bg)", padding: "100px 0", borderTop: "1px solid var(--border)" }}>
         <div className="container">
           <div style={{ marginBottom: "48px" }}>
             <h2 className="display" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.05, margin: 0, color: "var(--text)" }}>
@@ -483,7 +491,7 @@ export default function ProductPage() {
               alignItems: "start",
             }}
           >
-            <div style={{ position: "sticky", top: "100px" }}>
+            <div className="daylife-left" style={{ position: "sticky", top: "100px" }}>
               <h2
                 className="display"
                 style={{
@@ -619,6 +627,7 @@ export default function ProductPage() {
 
       {/* ── 8. POSITIONING STRIP ─────────────────────────────────── */}
       <section
+        className="section-pad"
         style={{
           background: "var(--bg-dark)",
           color: "var(--text-light)",
@@ -686,6 +695,7 @@ export default function ProductPage() {
 
       {/* ── 10. CTA ──────────────────────────────────────────────── */}
       <section
+        className="section-pad"
         style={{
           background: "var(--bg-dark)",
           color: "var(--text-light)",
@@ -719,7 +729,7 @@ export default function ProductPage() {
                 Start writing today.
               </span>
             </h2>
-            <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "flex-end" }}>
+            <div className="product-cta-btns" style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "flex-end" }}>
               <a
                 href="https://app.journeex.neerajraisinghani.com/"
                 target="_blank"
@@ -772,14 +782,24 @@ export default function ProductPage() {
           .daylife-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
           .try-entry-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
           .product-cta-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .product-cta-btns { justify-content: flex-start !important; }
           .feature-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .stats-strip { flex-wrap: wrap; gap: 24px !important; }
-          .stats-strip > div { border-left: none !important; padding: 0 !important; flex: none !important; width: calc(50% - 12px); }
+          .stats-strip { flex-wrap: nowrap !important; gap: 0 !important; overflow-x: auto !important; }
+          .stats-strip > div { flex: 1 1 0 !important; padding: 0 16px !important; min-width: 0 !important; }
+          .stats-strip > div .display { font-size: clamp(0.95rem, 4vw, 1.3rem) !important; }
+          .stats-strip > div > div:last-child { font-size: 0.6rem !important; letter-spacing: 0.06em !important; }
         }
         @media (max-width: 640px) {
           .persona-grid { grid-template-columns: 1fr !important; }
           .feature-grid { grid-template-columns: 1fr !important; }
-          .stats-strip > div { width: 100%; }
+          .stats-strip > div { padding: 0 10px !important; }
+          .stats-strip > div:first-child { padding-left: 0 !important; }
+          .bento-grid { grid-template-columns: 1fr !important; }
+          .bento-card { grid-column: span 1 !important; padding: 28px 20px !important; }
+          .how-grid > div { padding: 32px 20px !important; }
+          .persona-grid > div { padding: 28px 20px !important; }
+          .positioning-grid > div { padding: 28px 20px !important; }
+          .daylife-left { position: static !important; }
         }
       `}</style>
     </main>

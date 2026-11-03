@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JourneeX
 
-## Getting Started
+JourneeX is a personal AI journal. Write an entry, and it reads what you actually wrote and reflects it back, not generic wellness copy, not a therapy bot, just a mirror that remembers. The product (separate from this website) includes:
 
-First, run the development server:
+- **Daily journal entries** with an AI-generated reflection after each one
+- **Weekly AI summaries**, a single warm reflection on the shape of your week
+- **Habit tracking** with one-tap daily logging and a 90-day heatmap
+- **Mood and day-rating logging**, plotted as trends over time
+- **Full-text search** across every past entry
+- End-to-end encrypted storage, no ads, no data selling, no training AI models on journal content
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The app itself lives at [app.journeex.neerajraisinghani.com](https://app.journeex.neerajraisinghani.com). 
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Favicon & Social / Share Icons
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Favicon**: `public/favicon.svg`, wired up in `src/app/layout.tsx` via `metadata.icons` (`icon` + `shortcut`).
+- **Open Graph / Twitter card image**: generated dynamically at request time by `src/app/api/og/route.tsx` using `next/og`'s `ImageResponse`, no static image file to keep in sync. Referenced from `metadata.openGraph.images` and `metadata.twitter.images` in `layout.tsx`.
+- **Social links** (footer, contact page, metadata `authors`/`creator`):
+  - LinkedIn: [linkedin.com/in/neerajraisinghani](https://www.linkedin.com/in/neerajraisinghani/)
+  - Portfolio: [neerajraisinghani.com](https://neerajraisinghani.com)
+  - Twitter/X handle in `metadata.twitter.creator`: `@neerajraisinghani`
+- **App link**: every primary CTA ("Start journaling", "Open JourneeX") points to [app.journeex.neerajraisinghani.com](https://app.journeex.neerajraisinghani.com/).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Private, unlicensed. All rights reserved by Neeraj Raisinghani.

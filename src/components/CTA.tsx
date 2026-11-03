@@ -4,10 +4,10 @@ import ScrollReveal from "./ScrollReveal";
 export default function CTA() {
   return (
     <section
+      className="section"
       style={{
         background: "var(--bg-dark)",
         color: "var(--text-light)",
-        padding: "100px 0",
         position: "relative",
         overflow: "hidden",
       }}
@@ -67,7 +67,7 @@ export default function CTA() {
           </ScrollReveal>
 
           <ScrollReveal delay={160}>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <div className="cta-btn-wrap" style={{ display: "flex", justifyContent: "flex-end" }}>
               <a
                 href="https://app.journeex.neerajraisinghani.com/"
                 target="_blank"
@@ -98,6 +98,7 @@ export default function CTA() {
       <style>{`
         @media (max-width: 767px) {
           .cta-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .cta-btn-wrap { justify-content: flex-start !important; }
         }
       `}</style>
     </section>

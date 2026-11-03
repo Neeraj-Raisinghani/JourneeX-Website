@@ -17,6 +17,15 @@ export default function Hero() {
     const side    = sideRef.current;
     if (!section || !sub || !side) return;
 
+    // On mobile, skip the scroll animation — show content immediately
+    if (window.innerWidth <= 767) {
+      section.style.transform = "none";
+      sub.style.opacity   = "1";
+      sub.style.transform = "none";
+      side.style.opacity  = "0";
+      return;
+    }
+
     const vh = window.innerHeight;
 
     sub.style.opacity   = "0";
@@ -56,9 +65,10 @@ export default function Hero() {
   }, []);
 
   return (
-    <div style={{ height: "300vh", position: "relative" }}>
+    <div className="hero-wrapper" style={{ height: "300vh", position: "relative" }}>
       <section
         ref={sectionRef}
+        className="hero-section"
         style={{
           position: "sticky",
           top: "64px",
@@ -192,6 +202,7 @@ export default function Hero() {
         {/* ── Right-side editorial element ── */}
         <div
           ref={sideRef}
+          className="hero-side"
           style={{
             position: "absolute",
             right: "48px",
@@ -240,10 +251,103 @@ export default function Hero() {
 
         <style>{`
           @media (max-width: 767px) {
-            .hero-stats { display: none !important; }
-          }
-          @media (max-width: 640px) {
-            .hero-sub { grid-template-columns: 1fr !important; }
+            /* ── Collapse scroll wrapper ── */
+            .hero-wrapper { height: auto !important; }
+
+            /* ── Section: simple block, no sticky, generous padding ── */
+            .hero-section {
+              position: relative !important;
+              top: 0 !important;
+              height: auto !important;
+              min-height: 0 !important;
+              padding: 52px 0 48px !important;
+              justify-content: flex-start !important;
+            }
+
+            /* ── Yellow accent bar above title ── */
+            .hero-section .container::before {
+              content: '';
+              display: block;
+              width: 32px;
+              height: 3px;
+              background: var(--highlight);
+              margin-bottom: 28px;
+            }
+
+            /* ── Title ── */
+            .hero-section .container h1 {
+              font-size: clamp(4rem, 19vw, 6rem) !important;
+              line-height: 0.95 !important;
+              letter-spacing: -0.04em !important;
+            }
+
+            /* ── Title wrapper spacing ── */
+            .hero-section .container > div:first-child {
+              margin-bottom: 28px !important;
+            }
+
+            /* ── Sub: single column ── */
+            .hero-side { display: none !important; }
+            .hero-sub {
+              display: flex !important;
+              flex-direction: column !important;
+              align-items: stretch !important;
+              gap: 0 !important;
+              padding-top: 20px !important;
+              opacity: 1 !important;
+              transform: none !important;
+            }
+            .hero-sub > div:first-child {
+              width: 100% !important;
+            }
+
+            /* ── Subtitle ── */
+            .hero-sub h2 {
+              font-size: 1rem !important;
+              line-height: 1.7 !important;
+              margin-bottom: 24px !important;
+              max-width: 100% !important;
+            }
+
+            /* ── Buttons: side by side, content-sized, no text wrap ── */
+            .hero-sub > div > div {
+              flex-direction: row !important;
+              flex-wrap: nowrap !important;
+              gap: 10px !important;
+              width: 100% !important;
+            }
+            .hero-sub > div > div a {
+              flex: 0 1 auto !important;
+              text-align: center !important;
+              box-sizing: border-box !important;
+              padding: 10px 16px !important;
+              font-size: 0.75rem !important;
+              letter-spacing: 0.02em !important;
+              white-space: nowrap !important;
+              overflow: hidden !important;
+              text-overflow: ellipsis !important;
+              max-width: 100% !important;
+            }
+
+            /* ── Stats: divider row below buttons ── */
+            .hero-stats {
+              display: flex !important;
+              gap: 0 !important;
+              margin-top: 32px !important;
+              padding-top: 24px !important;
+              border-top: 1px solid var(--border-dark) !important;
+            }
+            .hero-stats > div {
+              flex: 1 !important;
+              text-align: left !important;
+            }
+            .hero-stats > div + div {
+              border-left: 1px solid var(--border-dark) !important;
+              padding-left: 14px !important;
+            }
+            .hero-stats > div .display {
+              font-size: 1.1rem !important;
+            }
           }
         `}</style>
       </section>

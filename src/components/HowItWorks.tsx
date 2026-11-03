@@ -39,7 +39,7 @@ export default function HowItWorks() {
         >
           {steps.map((s, i) => (
             <ScrollReveal key={s.step} delay={i * 100}>
-              <div style={{ padding: "0 40px 0 0", paddingLeft: i > 0 ? "40px" : "0", borderRight: i < steps.length - 1 ? "1px solid var(--border)" : "none" }}>
+              <div className="hiw-step" style={{ padding: "0 40px 0 0", paddingLeft: i > 0 ? "40px" : "0", borderRight: i < steps.length - 1 ? "1px solid var(--border)" : "none" }}>
                 <div
                   className="display"
                   style={{
@@ -76,6 +76,8 @@ export default function HowItWorks() {
       <style>{`
         @media (max-width: 767px) {
           .hiw-grid { grid-template-columns: 1fr !important; }
+          .hiw-step { border-right: none !important; padding-left: 0 !important; padding-right: 0 !important; border-bottom: 1px solid var(--border); padding-bottom: 32px !important; }
+          .hiw-grid > *:last-child .hiw-step { border-bottom: none !important; padding-bottom: 0 !important; }
         }
       `}</style>
     </section>
