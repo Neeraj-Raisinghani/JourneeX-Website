@@ -160,7 +160,7 @@ export default function TryEntry() {
             transition: "opacity 0.2s",
             whiteSpace: "nowrap",
           }}
-          onMouseEnter={(e) => { if (text.trim().length >= 5) e.currentTarget.style.opacity = "0.8"; }}
+          onMouseEnter={(e) => { if (text.trim().length >= 5) e.currentTarget.style.opacity = "0.75"; }}
           onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
         >
           Save my entry →

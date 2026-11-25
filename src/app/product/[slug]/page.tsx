@@ -2,6 +2,7 @@ import { features } from "@/data/features";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
+import HoverCtaLink from "@/components/HoverCtaLink";
 
 export function generateStaticParams() {
   return features.map((f) => ({ slug: f.slug }));
@@ -61,9 +62,15 @@ export default async function FeaturePage({ params }: { params: Promise<{ slug: 
               <p style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: "clamp(1rem, 1.8vw, 1.2rem)", fontStyle: "italic", lineHeight: 1.7, color: "var(--text-light-muted)", margin: "0 0 44px", maxWidth: "400px" }}>
                 {feature.tagline}
               </p>
-              <a href="https://app.journeex.neerajraisinghani.com/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", padding: "14px 40px", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#fff", background: "transparent", border: "1px solid rgba(255,255,255,0.3)", textDecoration: "none" }}>
+              <HoverCtaLink
+                href="https://app.journeex.neerajraisinghani.com/"
+                variant="outline"
+                baseBorderColor="rgba(255,255,255,0.3)"
+                hoverBorderColor="#fff"
+                style={{ display: "inline-block", padding: "14px 40px", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#fff", background: "transparent", border: "1px solid rgba(255,255,255,0.3)", textDecoration: "none", transition: "border-color 0.2s" }}
+              >
                 Start writing
-              </a>
+              </HoverCtaLink>
             </div>
 
             {/* Right: stat */}
@@ -184,10 +191,16 @@ export default async function FeaturePage({ params }: { params: Promise<{ slug: 
               <p style={{ fontSize: "1.1rem", lineHeight: 1.85, color: "var(--text-light-muted)", margin: "0 0 36px", maxWidth: "380px" }}>
                 {feature.stat.label}
               </p>
-              <a href="https://app.journeex.neerajraisinghani.com/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "10px", padding: "12px 28px", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#fff", background: "transparent", textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)" }}>
+              <HoverCtaLink
+                href="https://app.journeex.neerajraisinghani.com/"
+                variant="outline"
+                baseBorderColor="rgba(255,255,255,0.2)"
+                hoverBorderColor="#fff"
+                style={{ display: "inline-flex", alignItems: "center", gap: "10px", padding: "12px 28px", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#fff", background: "transparent", textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)", transition: "border-color 0.2s" }}
+              >
                 See it yourself
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </a>
+              </HoverCtaLink>
             </div>
           </div>
         </div>
@@ -295,12 +308,22 @@ export default async function FeaturePage({ params }: { params: Promise<{ slug: 
               </p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", gap: "16px", flexWrap: "wrap", flexShrink: 0 }}>
-              <a href="https://app.journeex.neerajraisinghani.com/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", padding: "16px 48px", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#000", background: "#fff", textDecoration: "none" }}>
+              <HoverCtaLink
+                href="https://app.journeex.neerajraisinghani.com/"
+                variant="fill"
+                style={{ display: "inline-block", padding: "16px 48px", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#000", background: "#fff", textDecoration: "none", transition: "opacity 0.2s" }}
+              >
                 Open JourneeX
-              </a>
-              <Link href="/product" style={{ display: "inline-block", padding: "16px 48px", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", textDecoration: "none", border: "1px solid rgba(255,255,255,0.1)" }}>
+              </HoverCtaLink>
+              <HoverCtaLink
+                href="/product"
+                variant="outline"
+                baseBorderColor="rgba(255,255,255,0.1)"
+                hoverBorderColor="#fff"
+                style={{ display: "inline-block", padding: "16px 48px", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", textDecoration: "none", border: "1px solid rgba(255,255,255,0.1)", transition: "border-color 0.2s" }}
+              >
                 All features
-              </Link>
+              </HoverCtaLink>
             </div>
           </div>
         </div>

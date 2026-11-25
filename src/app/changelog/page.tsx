@@ -1,4 +1,5 @@
 ﻿import type { Metadata } from "next";
+import HoverCtaLink from "@/components/HoverCtaLink";
 
 export const metadata: Metadata = {
   title: "Changelog | JourneeX",
@@ -279,9 +280,13 @@ export default function ChangelogPage() {
               Open the app and see for yourself.
             </p>
           </div>
-          <a href="https://app.journeex.neerajraisinghani.com/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", padding: "16px 48px", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#000", background: "#fff", textDecoration: "none", flexShrink: 0 }}>
+          <HoverCtaLink
+            href="https://app.journeex.neerajraisinghani.com/"
+            variant="fill"
+            style={{ display: "inline-block", padding: "16px 48px", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#000", background: "#fff", textDecoration: "none", flexShrink: 0, transition: "opacity 0.2s" }}
+          >
             Open JourneeX
-          </a>
+          </HoverCtaLink>
         </div>
       </section>
 

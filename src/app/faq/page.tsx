@@ -1,5 +1,6 @@
 import FaqAccordion from "@/components/FaqAccordion";
 import type { Metadata } from "next";
+import HoverCtaLink from "@/components/HoverCtaLink";
 
 export const metadata: Metadata = {
   title: "FAQ | JourneeX",
@@ -155,9 +156,9 @@ export default function FAQPage() {
               </span>
             </h2>
             <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "flex-end" }}>
-              <a
+              <HoverCtaLink
                 href="mailto:journeex@neerajraisinghani.com"
-                className="faq-email-btn"
+                variant="fill"
                 style={{
                   display: "inline-block",
                   padding: "12px 28px",
@@ -173,11 +174,12 @@ export default function FAQPage() {
                 }}
               >
                 Email
-              </a>
-              <a
+              </HoverCtaLink>
+              <HoverCtaLink
                 href="https://app.journeex.neerajraisinghani.com/"
-                target="_blank"
-                rel="noopener noreferrer"
+                variant="outline"
+                baseBorderColor="rgba(255,255,255,0.3)"
+                hoverBorderColor="#fff"
                 style={{
                   display: "inline-block",
                   padding: "12px 28px",
@@ -189,10 +191,11 @@ export default function FAQPage() {
                   textDecoration: "none",
                   border: "2px solid rgba(255,255,255,0.3)",
                   whiteSpace: "nowrap",
+                  transition: "border-color 0.2s",
                 }}
               >
                 Try JourneeX
-              </a>
+              </HoverCtaLink>
             </div>
           </div>
         </div>

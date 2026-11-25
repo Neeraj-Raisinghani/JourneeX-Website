@@ -1,7 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { isValidPhoneNumber } from "libphonenumber-js";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+function escapeHtml(input: string): string {
+  return input
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 // Simple in-memory rate limit: max 3 submissions per IP per 10 minutes
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
@@ -152,12 +164,28 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
   }
 
-  if (recaptchaToken) {
-    const valid = await verifyRecaptcha(recaptchaToken);
-    if (!valid) {
-      return NextResponse.json({ error: "reCAPTCHA verification failed. Please try again." }, { status: 400 });
-    }
+  if (!EMAIL_PATTERN.test(email.trim())) {
+    return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
   }
+
+  if (phone?.trim() && !isValidPhoneNumber(phone.trim())) {
+    return NextResponse.json({ error: "Please enter a valid phone number." }, { status: 400 });
+  }
+
+  if (!recaptchaToken) {
+    return NextResponse.json({ error: "reCAPTCHA verification is required. Please try again." }, { status: 400 });
+  }
+
+  const recaptchaValid = await verifyRecaptcha(recaptchaToken);
+  if (!recaptchaValid) {
+    return NextResponse.json({ error: "reCAPTCHA verification failed. Please try again." }, { status: 400 });
+  }
+
+  // Escape all user-supplied strings before they're interpolated into email HTML below.
+  const safeName = escapeHtml(name.trim());
+  const safeEmail = escapeHtml(email.trim());
+  const safePhone = phone?.trim() ? escapeHtml(phone.trim()) : undefined;
+  const safeMessage = escapeHtml(message.trim());
 
   // Gather metadata
   const now = new Date();
@@ -192,7 +220,7 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from: `JourneeX by Neeraj Raisinghani <${NOTIFY_FROM}>`,
       to: `JourneeX by Neeraj Raisinghani <${INBOX}>`,
-      replyTo: `${name} <${email}>`,
+      replyTo: `${name.trim()} <${email.trim()}>`,
       subject: "JourneeX | Contact Form",
       html: `<!DOCTYPE html>
 <html lang="en">
@@ -220,9 +248,9 @@ export async function POST(req: NextRequest) {
             <td style="background:#ffffff;padding:36px 36px 28px;">
               <p style="margin:0 0 16px;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a9590;">Contact Details</p>
               <table width="100%" cellpadding="0" cellspacing="0">
-                ${row("Name", name)}
-                ${row("Email", `<a href="mailto:${email}" style="color:#1a1816;font-weight:600;">${email}</a>`)}
-                ${phone ? row("Phone", phone) : ""}
+                ${row("Name", safeName)}
+                ${row("Email", `<a href="mailto:${safeEmail}" style="color:#1a1816;font-weight:600;">${safeEmail}</a>`)}
+                ${safePhone ? row("Phone", safePhone) : ""}
               </table>
             </td>
           </tr>
@@ -234,7 +262,7 @@ export async function POST(req: NextRequest) {
           <tr>
             <td style="background:#ffffff;padding:28px 36px;">
               <p style="margin:0 0 6px;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a9590;">Message</p>
-              <p style="margin:0;font-size:1rem;color:#1a1816;line-height:1.75;white-space:pre-wrap;">${message}</p>
+              <p style="margin:0;font-size:1rem;color:#1a1816;line-height:1.75;white-space:pre-wrap;">${safeMessage}</p>
             </td>
           </tr>
 
@@ -266,7 +294,7 @@ export async function POST(req: NextRequest) {
           <!-- Footer -->
           <tr>
             <td style="background:#f0ede8;padding:20px 36px;border-radius:0 0 16px 16px;">
-              <p style="margin:0;font-size:0.78rem;color:#9a9590;">Reply directly to this email to respond to ${name}.</p>
+              <p style="margin:0;font-size:0.78rem;color:#9a9590;">Reply directly to this email to respond to ${safeName}.</p>
             </td>
           </tr>
 
@@ -281,9 +309,9 @@ export async function POST(req: NextRequest) {
     // Confirmation email to sender
     await resend.emails.send({
       from: `JourneeX by Neeraj Raisinghani <${FROM}>`,
-      to: email,
+      to: email.trim(),
       replyTo: `JourneeX by Neeraj Raisinghani <${INBOX}>`,
-      subject: `Message Received, ${name}!`,
+      subject: `Message Received, ${name.trim()}!`,
       html: `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -307,7 +335,7 @@ export async function POST(req: NextRequest) {
           <!-- Body -->
           <tr>
             <td style="background:#ffffff;padding:44px 40px 36px;">
-              <p style="margin:0 0 20px;font-size:1rem;color:#1a1816;line-height:1.75;">Hi ${name},</p>
+              <p style="margin:0 0 20px;font-size:1rem;color:#1a1816;line-height:1.75;">Hi ${safeName},</p>
               <p style="margin:0 0 20px;font-size:1rem;color:#1a1816;line-height:1.75;">Your message has been received and I will be getting back to you super soon.</p>
               <p style="margin:0 0 20px;font-size:1rem;color:#5a5550;line-height:1.75;">JourneeX is a personal AI journal built around one idea: write your day and hear it reflected back, warm, honest, and human. Every message I receive matters, and yours is no different.</p>
               <p style="margin:0 0 0;font-size:1rem;color:#1a1816;line-height:1.75;">If something is urgent, reach out directly at <a href="mailto:journeex@neerajraisinghani.com" style="color:#1a1816;font-weight:600;">journeex@neerajraisinghani.com</a> and I will prioritise it.</p>

@@ -464,7 +464,7 @@ export default function ContactForm() {
                   type="submit"
                   disabled={submitting}
                   style={{ width: "100%", padding: "12px 28px", fontWeight: 700, fontSize: "0.875rem", letterSpacing: "0.04em", color: "var(--bg)", background: "var(--text)", border: "2px solid var(--text)", cursor: submitting ? "not-allowed" : "pointer", fontFamily: "inherit", transition: "opacity 0.2s", opacity: submitting ? 0.6 : 1 }}
-                  onMouseEnter={(e) => { if (!submitting) e.currentTarget.style.opacity = "0.8"; }}
+                  onMouseEnter={(e) => { if (!submitting) e.currentTarget.style.opacity = "0.75"; }}
                   onMouseLeave={(e) => { if (!submitting) e.currentTarget.style.opacity = "1"; }}
                 >
                   {submitting ? "Sending..." : "Submit"}

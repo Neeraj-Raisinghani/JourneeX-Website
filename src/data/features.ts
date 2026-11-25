@@ -82,7 +82,7 @@ export const features: Feature[] = [
     slug: "habit-tracker",
     icon: "T",
     name: "Habit Tracker",
-    tagline: "Small daily wins that add up over time.",
+    tagline: "Small daily wins that quietly add up over time.",
     description:
       "Log your daily habits inside your journal. Track exercise, reading, sleep, and more. Watch consistency build over time.",
     category: "Tracking",
@@ -112,7 +112,7 @@ export const features: Feature[] = [
     slug: "mood-day-tracker",
     icon: "M",
     name: "Mood & Day Tracker",
-    tagline: "Rate your day. See what it adds up to.",
+    tagline: "Rate your day in seconds. See what it adds up to.",
     description:
       "Rate your day and log your mood with each entry. Over time, patterns emerge between how you feel and how you write.",
     category: "Tracking",
@@ -142,7 +142,7 @@ export const features: Feature[] = [
     slug: "streak-counter",
     icon: "C",
     name: "Streak Counter",
-    tagline: "Show up every day. Watch it compound.",
+    tagline: "Show up every single day. Watch it quietly compound.",
     description:
       "Your writing streak is front and centre every time you open the app. Miss a day and it resets. Honest and surprisingly motivating.",
     category: "Tracking",
@@ -172,7 +172,7 @@ export const features: Feature[] = [
     slug: "weekly-summary",
     icon: "W",
     name: "Weekly Summary",
-    tagline: "Seven days distilled into one reflection.",
+    tagline: "Seven busy days, distilled into one gentle reflection.",
     description:
       "Every Sunday, your week's entries are distilled into a single reflection. The shape of the week, not just a list of what you did.",
     category: "Tracking",
@@ -203,7 +203,7 @@ export const features: Feature[] = [
     slug: "reminders",
     icon: "B",
     name: "Reminders",
-    tagline: "A quiet nudge before the day gets away.",
+    tagline: "A quiet nudge right before your day gets away.",
     description:
       "Set a daily nudge to write at the time you choose. No nagging, no dark patterns. Just a quiet prompt before the day gets away.",
     category: "Tracking",
@@ -233,7 +233,7 @@ export const features: Feature[] = [
     slug: "insights-dashboard",
     icon: "I",
     name: "Insights Dashboard",
-    tagline: "Patterns you never noticed, now visible.",
+    tagline: "Patterns in your days you never noticed before.",
     description:
       "A visual overview of your writing life. Mood trends, habit consistency, and writing frequency all pulled together in one place.",
     category: "Tracking",
@@ -265,7 +265,7 @@ export const features: Feature[] = [
     slug: "tags-categories",
     icon: "G",
     name: "Tags & Categories",
-    tagline: "Your entries, organised your way.",
+    tagline: "Your journal entries, organised exactly your way.",
     description:
       "Add tags to any entry to group related thoughts. Work, travel, family, ideas. Your taxonomy, completely your own rules.",
     category: "Organization",
@@ -295,7 +295,7 @@ export const features: Feature[] = [
     slug: "writing-stats",
     icon: "N",
     name: "Writing Stats",
-    tagline: "Every word you have written, counted.",
+    tagline: "Every single word you've ever written, counted.",
     description:
       "Word counts, entry frequency, average length. A quiet record of your writing life that builds up over time without any effort.",
     category: "Organization",

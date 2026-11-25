@@ -4,6 +4,7 @@ import FeatureRow from "@/components/FeatureRow";
 import TryEntry from "@/components/TryEntry";
 import Link from "next/link";
 import type { Metadata } from "next";
+import HoverCtaLink from "@/components/HoverCtaLink";
 
 export const metadata: Metadata = {
   title: "Features | JourneeX",
@@ -730,10 +731,9 @@ export default function ProductPage() {
               </span>
             </h2>
             <div className="product-cta-btns" style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "flex-end" }}>
-              <a
+              <HoverCtaLink
                 href="https://app.journeex.neerajraisinghani.com/"
-                target="_blank"
-                rel="noopener noreferrer"
+                variant="fill"
                 style={{
                   display: "inline-block",
                   padding: "14px 36px",
@@ -748,7 +748,7 @@ export default function ProductPage() {
                 }}
               >
                 Open JourneeX
-              </a>
+              </HoverCtaLink>
             </div>
           </div>
         </div>

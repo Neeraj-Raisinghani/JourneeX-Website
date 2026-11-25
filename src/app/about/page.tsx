@@ -1,5 +1,6 @@
 ﻿import Link from "next/link";
 import type { Metadata } from "next";
+import HoverCtaLink from "@/components/HoverCtaLink";
 
 export const metadata: Metadata = {
   title: "About | JourneeX",
@@ -294,10 +295,9 @@ export default function AboutPage() {
               JourneeX started as a question: what if your journal could write back?
             </p>
             <div className="builder-btns" style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "flex-end" }}>
-              <a
+              <HoverCtaLink
                 href="https://app.journeex.neerajraisinghani.com/"
-                target="_blank"
-                rel="noopener noreferrer"
+                variant="fill"
                 style={{
                   display: "inline-block",
                   padding: "12px 28px",
@@ -309,12 +309,16 @@ export default function AboutPage() {
                   textDecoration: "none",
                   border: "2px solid #fff",
                   whiteSpace: "nowrap",
+                  transition: "opacity 0.2s",
                 }}
               >
                 Try JourneeX
-              </a>
-              <Link
+              </HoverCtaLink>
+              <HoverCtaLink
                 href="/contact"
+                variant="outline"
+                baseBorderColor="rgba(255,255,255,0.3)"
+                hoverBorderColor="#fff"
                 style={{
                   display: "inline-block",
                   padding: "12px 28px",
@@ -326,10 +330,11 @@ export default function AboutPage() {
                   textDecoration: "none",
                   border: "2px solid rgba(255,255,255,0.3)",
                   whiteSpace: "nowrap",
+                  transition: "border-color 0.2s",
                 }}
               >
                 Get in touch
-              </Link>
+              </HoverCtaLink>
             </div>
           </div>
         </div>

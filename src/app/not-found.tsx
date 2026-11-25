@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import HoverCtaLink from "@/components/HoverCtaLink";
 
 export const metadata: Metadata = {
   title: "Page Not Found",
@@ -75,8 +75,9 @@ export default function NotFound() {
           </p>
 
           <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-            <Link
+            <HoverCtaLink
               href="/"
+              variant="fill"
               style={{
                 display: "inline-block",
                 background: "#f5e642",
@@ -88,12 +89,16 @@ export default function NotFound() {
                 padding: "14px 28px",
                 borderRadius: "4px",
                 textDecoration: "none",
+                transition: "opacity 0.2s",
               }}
             >
               Go home
-            </Link>
-            <Link
+            </HoverCtaLink>
+            <HoverCtaLink
               href="/contact"
+              variant="outline"
+              baseBorderColor="rgba(255,255,255,0.12)"
+              hoverBorderColor="#fff"
               style={{
                 display: "inline-block",
                 background: "transparent",
@@ -106,10 +111,11 @@ export default function NotFound() {
                 borderRadius: "4px",
                 textDecoration: "none",
                 border: "1px solid rgba(255,255,255,0.12)",
+                transition: "border-color 0.2s",
               }}
             >
               Get in touch
-            </Link>
+            </HoverCtaLink>
           </div>
         </div>
       </section>
