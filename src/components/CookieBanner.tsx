@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { COOKIE_CONSENT_EVENT } from "./Analytics";
 
 const STORAGE_KEY = "journeex_cookie_consent";
 
@@ -18,11 +19,13 @@ export default function CookieBanner() {
 
   function accept() {
     try { localStorage.setItem(STORAGE_KEY, "accepted"); } catch {}
+    window.dispatchEvent(new Event(COOKIE_CONSENT_EVENT));
     setVisible(false);
   }
 
   function decline() {
     try { localStorage.setItem(STORAGE_KEY, "declined"); } catch {}
+    window.dispatchEvent(new Event(COOKIE_CONSENT_EVENT));
     setVisible(false);
   }
 

@@ -647,8 +647,8 @@ export default function ProductPage() {
           >
             {[
               { not: "Not a notes app.", is: "Notes don't reflect back. JourneeX does." },
-              { not: "Not a therapy app.", is: "It won't diagnose you. It'll help you hear yourself." },
-              { not: "Not a social feed.", is: "No followers. No likes. Just you." },
+              { not: "Not a therapy app.", is: "It won't diagnose you. It helps you listen." },
+              { not: "Not a social app.", is: "No followers. No likes. Just you." },
             ].map((item, i) => (
               <div
                 key={item.not}

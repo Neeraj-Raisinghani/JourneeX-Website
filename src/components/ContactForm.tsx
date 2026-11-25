@@ -446,12 +446,17 @@ export default function ContactForm() {
                   </div>
                 )}
 
-                {/* Consent */}
+                {/* Consent + Google reCAPTCHA disclosure (required when the badge is hidden) */}
                 <p style={{ margin: "0", fontSize: "0.75rem", color: "var(--text-dim)", lineHeight: 1.6 }}>
-                  By submitting, you agree to the{" "}
+                  By submitting, you agree to our{" "}
                   <a href="/privacy" style={{ color: "var(--text-muted)", fontWeight: 600 }}>Privacy Policy</a>
-                  {" "}and{" "}
-                  <a href="/terms" style={{ color: "var(--text-muted)", fontWeight: 600 }}>Terms of Service</a>.
+                  {" "}&amp;{" "}
+                  <a href="/terms" style={{ color: "var(--text-muted)", fontWeight: 600 }}>Terms</a>.
+                  {" "}Protected by reCAPTCHA (Google{" "}
+                  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-muted)", fontWeight: 600 }}>Privacy Policy</a>
+                  {" "}&amp;{" "}
+                  <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-muted)", fontWeight: 600 }}>Terms</a>
+                  {" "}apply).
                 </p>
 
                 {/* Submit */}
