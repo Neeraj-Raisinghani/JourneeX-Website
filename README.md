@@ -17,7 +17,7 @@ The app itself lives at [app.journeex.neerajraisinghani.com](https://app.journee
 - **Favicon**: `public/favicon.svg`, wired up in `src/app/layout.tsx` via `metadata.icons` (`icon` + `shortcut`).
 - **Open Graph / Twitter card image**: generated dynamically at request time by `src/app/api/og/route.tsx` using `next/og`'s `ImageResponse`, no static image file to keep in sync. Referenced from `metadata.openGraph.images` and `metadata.twitter.images` in `layout.tsx`.
 - **Social links** (footer, contact page, metadata `authors`/`creator`):
-  - LinkedIn: [linkedin.com/in/neerajraisinghani](https://www.linkedin.com/in/neerajraisinghani/)
+  - LinkedIn: [linkedin.com/in/neeraj-raisinghani](https://www.linkedin.com/in/neeraj-raisinghani/)
   - Portfolio: [neerajraisinghani.com](https://neerajraisinghani.com)
   - Twitter/X handle in `metadata.twitter.creator`: `@neerajraisinghani`
 - **App link**: every primary CTA ("Start journaling", "Open JourneeX") points to [app.journeex.neerajraisinghani.com](https://app.journeex.neerajraisinghani.com/).

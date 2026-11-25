@@ -281,10 +281,18 @@ export default function ContactForm() {
 
     try {
       const recaptchaToken = await getRecaptchaToken();
+      const clientMeta = {
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        screen: `${window.screen.width}x${window.screen.height}`,
+        viewport: `${window.innerWidth}x${window.innerHeight}`,
+        language: navigator.language,
+        pageUrl: window.location.href,
+        localTime: new Date().toString(),
+      };
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone: phone || undefined, message, recaptchaToken }),
+        body: JSON.stringify({ name, email, phone: phone || undefined, message, recaptchaToken, clientMeta }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -308,7 +316,7 @@ export default function ContactForm() {
     <section style={{ background: "var(--bg)", minHeight: "calc(100vh - 64px)", display: "flex", alignItems: "center", padding: "80px 0" }}>
       <Script
         src={`https://www.google.com/recaptcha/enterprise.js?render=${RECAPTCHA_SITE_KEY}`}
-        strategy="lazyOnload"
+        strategy="afterInteractive"
       />
       <div className="container" style={{ width: "100%" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: "72px", alignItems: "center" }} className="contact-grid">
@@ -327,7 +335,7 @@ export default function ContactForm() {
             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               {[
                 { label: "Start a conversation", detail: "journeex@neerajraisinghani.com", href: "mailto:journeex@neerajraisinghani.com" },
-                { label: "Connect on LinkedIn", detail: "linkedin.com/in/neerajraisinghani", href: "https://www.linkedin.com/in/neerajraisinghani/" },
+                { label: "Connect on LinkedIn", detail: "linkedin.com/in/neeraj-raisinghani", href: "https://www.linkedin.com/in/neeraj-raisinghani/" },
                 { label: "See my work", detail: "neerajraisinghani.com", href: "https://neerajraisinghani.com" },
               ].map((c) => (
                 <div key={c.label}>

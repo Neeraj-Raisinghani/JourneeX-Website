@@ -23,7 +23,11 @@ function checkRateLimit(ip: string): boolean {
 async function verifyRecaptcha(token: string): Promise<boolean> {
   const apiKey = process.env.RECAPTCHA_API_KEY;
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-  if (!apiKey || !siteKey) return false;
+  if (!apiKey || !siteKey) {
+    console.error("reCAPTCHA misconfigured: RECAPTCHA_API_KEY or NEXT_PUBLIC_RECAPTCHA_SITE_KEY is not set.");
+    // Fail open: don't block real submissions over a server misconfiguration.
+    return true;
+  }
   try {
     const res = await fetch(
       `https://recaptchaenterprise.googleapis.com/v1/projects/journeex/assessments?key=${apiKey}`,
@@ -36,17 +40,30 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
       }
     );
     const data = await res.json();
+    if (!res.ok) {
+      console.error("reCAPTCHA assessment request failed:", res.status, JSON.stringify(data));
+      return true; // fail open on API/service errors
+    }
     const score: number = data?.riskAnalysis?.score ?? 0;
     const valid: boolean = data?.tokenProperties?.valid === true;
     const action: string = data?.tokenProperties?.action ?? "";
+    const invalidReason: string = data?.tokenProperties?.invalidReason ?? "";
+    if (!valid || action !== "CONTACT") {
+      console.error("reCAPTCHA token invalid:", { valid, action, invalidReason, score });
+    }
     return valid && action === "CONTACT" && score >= 0.5;
-  } catch {
-    return false;
+  } catch (err) {
+    console.error("reCAPTCHA verification threw:", err);
+    return true; // fail open: a network/service error isn't proof of a bot
   }
 }
 
+function isLocalIp(ip: string): boolean {
+  return ip === "unknown" || ip.startsWith("127.") || ip.startsWith("::1") || ip.startsWith("::ffff:127.");
+}
+
 async function getIpLocation(ip: string): Promise<{ city: string; region: string; country: string } | null> {
-  if (ip === "unknown" || ip.startsWith("127.") || ip.startsWith("::1")) return null;
+  if (isLocalIp(ip)) return null;
   try {
     const res = await fetch(`http://ip-api.com/json/${ip}?fields=city,regionName,country,status`, { signal: AbortSignal.timeout(3000) });
     const data = await res.json();
@@ -108,14 +125,28 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: { name: string; email: string; phone?: string; message: string; recaptchaToken?: string };
+  let body: {
+    name: string;
+    email: string;
+    phone?: string;
+    message: string;
+    recaptchaToken?: string;
+    clientMeta?: {
+      timezone?: string;
+      screen?: string;
+      viewport?: string;
+      language?: string;
+      pageUrl?: string;
+      localTime?: string;
+    };
+  };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const { name, email, phone, message, recaptchaToken } = body;
+  const { name, email, phone, message, recaptchaToken, clientMeta } = body;
 
   if (!name?.trim() || !email?.trim() || !message?.trim()) {
     return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
@@ -129,35 +160,46 @@ export async function POST(req: NextRequest) {
   }
 
   // Gather metadata
-  const submittedAt = new Date().toLocaleString("en-IN", {
+  const now = new Date();
+  const submittedAtUtc = now.toUTCString();
+  const submittedAtLocal = clientMeta?.localTime || now.toLocaleString("en-IN", {
     timeZone: "Asia/Kolkata",
     dateStyle: "full",
     timeStyle: "long",
   });
+  const timezone = clientMeta?.timezone || "Unknown";
   const userAgent = req.headers.get("user-agent") ?? "Unknown";
   const { browser, os, device } = parseUserAgent(userAgent);
+  const deviceStr = `${device} • ${os} • ${browser}`;
   const location = await getIpLocation(ip);
-  const locationStr = location
-    ? `${location.city}, ${location.region}, ${location.country}`
-    : "Could not determine";
+  const localRequest = isLocalIp(ip);
+  const city = location?.city ?? (localRequest ? "Unknown (local/dev request)" : "Unknown");
+  const region = location?.region ?? (localRequest ? "Unknown (local/dev request)" : "Unknown");
+  const country = location?.country ?? (localRequest ? "Unknown (local/dev request)" : "Unknown");
+  const screenViewport = clientMeta?.screen && clientMeta?.viewport
+    ? `${clientMeta.screen} / ${clientMeta.viewport}`
+    : "Unknown";
+  const language = clientMeta?.language || "Unknown";
+  const pageUrl = clientMeta?.pageUrl || "Unknown";
   const referer = req.headers.get("referer") ?? "Direct";
 
   const FROM = "noreply@journeex.neerajraisinghani.com";
+  const NOTIFY_FROM = "contact@journeex.neerajraisinghani.com";
   const INBOX = "journeex@neerajraisinghani.com";
 
   try {
     // Notification email to Neeraj — rich with all details
     await resend.emails.send({
-      from: `JourneeX by Neeraj Raisinghani <${FROM}>`,
-      to: INBOX,
-      replyTo: email,
-      subject: `New message from ${name}`,
+      from: `JourneeX by Neeraj Raisinghani <${NOTIFY_FROM}>`,
+      to: `JourneeX by Neeraj Raisinghani <${INBOX}>`,
+      replyTo: `${name} <${email}>`,
+      subject: "JourneeX | Contact Form",
       html: `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>New message from ${name}</title>
+<title>JourneeX | Contact Form</title>
 </head>
 <body style="margin:0;padding:0;background:#faf9f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#faf9f6;padding:40px 16px;">
@@ -204,13 +246,19 @@ export async function POST(req: NextRequest) {
             <td style="background:#ffffff;padding:28px 36px 36px;">
               <p style="margin:0 0 16px;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a9590;">Submission Details</p>
               <table width="100%" cellpadding="0" cellspacing="0">
-                ${row("Submitted", submittedAt)}
-                ${row("Location", locationStr)}
+                ${row("Submitted (UTC)", submittedAtUtc)}
+                ${row("Submitted (local)", submittedAtLocal)}
+                ${row("Timezone", timezone)}
                 ${row("IP Address", ip)}
-                ${row("Device", device)}
-                ${row("Browser", browser)}
-                ${row("OS", os)}
+                ${row("City", city)}
+                ${row("State", region)}
+                ${row("Country", country)}
+                ${row("Device", deviceStr)}
+                ${row("Screen / viewport", screenViewport)}
+                ${row("Browser language", language)}
+                ${row("Page URL", pageUrl)}
                 ${row("Referrer", referer)}
+                ${row("User agent", userAgent)}
               </table>
             </td>
           </tr>
@@ -234,6 +282,7 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from: `JourneeX by Neeraj Raisinghani <${FROM}>`,
       to: email,
+      replyTo: `JourneeX by Neeraj Raisinghani <${INBOX}>`,
       subject: `Message Received, ${name}!`,
       html: `<!DOCTYPE html>
 <html lang="en">
@@ -281,7 +330,7 @@ export async function POST(req: NextRequest) {
                 <span style="color:#ccc9c0;margin:0 8px;">|</span>
                 <a href="https://neerajraisinghani.com" style="color:#1a1816;font-weight:600;text-decoration:none;">neerajraisinghani.com</a>
                 <span style="color:#ccc9c0;margin:0 8px;">|</span>
-                <a href="https://www.linkedin.com/in/neerajraisinghani/" style="color:#1a1816;font-weight:600;text-decoration:none;">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/neeraj-raisinghani/" style="color:#1a1816;font-weight:600;text-decoration:none;">LinkedIn</a>
               </p>
             </td>
           </tr>

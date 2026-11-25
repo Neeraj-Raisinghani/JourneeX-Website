@@ -204,7 +204,7 @@ export default function Navbar() {
           </div>
 
           <div className="pub-nav-misc">
-            <a href="https://www.linkedin.com/in/neerajraisinghani/" target="_blank" rel="noopener noreferrer" className="pub-text-link">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/neeraj-raisinghani/" target="_blank" rel="noopener noreferrer" className="pub-text-link">LinkedIn</a>
             <a href="https://neerajraisinghani.com" target="_blank" rel="noopener noreferrer" className="pub-text-link">Portfolio</a>
             <a href="mailto:journeex@neerajraisinghani.com" className="pub-text-link">Email</a>
             <a

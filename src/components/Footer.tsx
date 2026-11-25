@@ -156,7 +156,7 @@ export default function Footer() {
             </h4>
             {[
               { label: "Try JourneeX", href: "https://app.journeex.neerajraisinghani.com/", external: true },
-              { label: "LinkedIn", href: "https://www.linkedin.com/in/neerajraisinghani/", external: true },
+              { label: "LinkedIn", href: "https://www.linkedin.com/in/neeraj-raisinghani/", external: true },
               { label: "Portfolio", href: "https://neerajraisinghani.com", external: true },
               { label: "Email", href: "mailto:journeex@neerajraisinghani.com", external: false },
             ].map((l) => (
